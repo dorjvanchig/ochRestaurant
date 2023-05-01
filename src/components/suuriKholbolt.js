@@ -30,10 +30,10 @@ const axs_kholboltEkhluulekh = (uilchilgeeniiNer, damjuulakhUtga, fileTokhirgoo,
     if (objectEsekh(fileTokhirgoo)) option = { ...option, ...fileTokhirgoo };
     
     if (damjuulakhUtga === null || damjuulakhUtga === undefined || damjuulakhUtga === "") damjuulakhUtga = " "; 
-    console.log('damjuulakhUtga', damjuulakhUtga)
+    // console.log('damjuulakhUtga', damjuulakhUtga)
     axios.post(baseURL, isString || fileTokhirgoo == true ? damjuulakhUtga : JSON.stringify(damjuulakhUtga), option)
     .then((response) => { 
-        console.log('response======>', response)
+        // console.log('response======>', response)
         resolve(response.data.data); 
     })
     .catch((error) => {

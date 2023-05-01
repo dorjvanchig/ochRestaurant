@@ -13,6 +13,7 @@ import CheckBox from '../components/checkBox';
 import BottomSheet from '../components/bottomSheet';
 import BarCodeUnshuulakh from './barCodeUnshuulakh';
 import TextInput from '../components/textTalbar';
+import _ from 'lodash'
 
 export default function BaraaSagslakh() {
   const router = useRouter()  
@@ -30,28 +31,28 @@ export default function BaraaSagslakh() {
 
   function handlePresentModalPress() 
   {
-    if ((isNullOrUndefined(barimt.bailguullagiinDugaar) || 
-        barimt.bailguullagiinDugaar ==="") && barimt.nuatTulugch === "baiguullaga")
-    {
-        // alert('dugaar oruulna uu')
-        baiguullagaRef.current.open()
-        return
-    }
-    bottomSheetRef.current.open()
-    // let param = {
-    //     barimt:{
-    //         baiguullagiinKhoch: "5254914",
-    //         shireeniiDugaar: 15,
-    //         khereglegchiinUtas: "88045424",
-    //         niitDun: 120000,
-    //         tuluv:1,
-    //         zakhialgiinDugaar: '15515'
-    //     },
-    //     barimtiinZadargaa: barimt.baraanuud
+    // if ((isNullOrUndefined(barimt.bailguullagiinDugaar) || 
+    //     barimt.bailguullagiinDugaar ==="") && barimt.nuatTulugch === "baiguullaga")
+    // {
+    //     alert('dugaar oruulna uu')
+    //     baiguullagaRef.current.open()
+    //     return
     // }
-    // axs_kholbolt('api/zakhialgaBurtguulye', param).then(khariu =>{
-    //     console.log("zakhailgaBurtguulye", khariu)
-    // })
+    // bottomSheetRef.current.open()
+    let baraanuud = _.cloneDeep(barimt.baraanuud)
+    baraanuud.forEach(a=> a.zurag = null)
+    let param = {
+            baiguullagiinKhoch: "5254914",
+            shireeniiDugaar: 15,
+            khereglegchiinUtas: "88045424",
+            niitDun: 120000,
+            tuluv:1,
+            zakhialgiinDugaar: '15515',
+            barimtiinZadargaa: baraanuud
+    } 
+    axs_kholbolt('api/zakhialgaBurtguulye', param).then(khariu =>{
+        console.log("zakhailgaBurtguulye", khariu)
+    })
   } 
   useEffect(()=>
   {

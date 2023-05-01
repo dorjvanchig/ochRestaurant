@@ -5,12 +5,14 @@ import CustomStatusBar from "../components/statusBar";
 import TextUtga from "../components/textUtga";
 import IconSimple from 'react-native-vector-icons/SimpleLineIcons'; 
 import IconMaterial from 'react-native-vector-icons/MaterialCommunityIcons'; 
-import { useRouter, Link, useLocalSearchParams, useSearchParams } from "expo-router";
+import { useRouter, Link, useNavigation, useSearchParams } from "expo-router";
 import { axs_kholbolt, formatNumber, isNullOrUndefined, sagsniiMedeelelAvya, sagsruuNemye } from '../components';
 import _ from 'lodash'
+import TsesKharuulakh from './tsesKharuulakh';
 
 export default function TsesKharakhTsonkh() {
   const router = useRouter()
+  const navigate = useNavigation()
   const songosonBaiguullaga = useSearchParams(); 
   const [tsesState, setTsesState] = useState({
     bulegTsesKharuulakh: [],
@@ -27,7 +29,9 @@ export default function TsesKharakhTsonkh() {
 
     function menuJagsaaltAvya() 
     {
+        console.log(new Date().getSeconds(), new Date().getMilliseconds())
         axs_kholbolt('api/menuJagsaaltAvya', {baiguullagiinKhoch: songosonBaiguullaga?.baiguullagiinKhoch}).then(khariu=>{
+            console.log(new Date().getSeconds(), new Date().getMilliseconds())
             let jagsaalt = _.groupBy(khariu, 'baraaniiBulgiinKhoch')
             let tmpJagsaalt = []
             if (!isNullOrUndefined(jagsaalt)){
@@ -37,8 +41,7 @@ export default function TsesKharakhTsonkh() {
                         object.zadargaa.push(b)
                     })
                     tmpJagsaalt.push(object)
-                })
-                console.log("tmpJagsaalt----", tmpJagsaalt)
+                }) 
             }
             tsesState.sagsMedeelel = sagsniiMedeelelAvya()
             tsesState.bulegTsesKharuulakh = tmpJagsaalt
@@ -47,7 +50,7 @@ export default function TsesKharakhTsonkh() {
     }
 
     function buteegdekhuunDelgerengui(ugugdul) {
-        // router.push("/buteegdekhuunDelgerengui")
+        navigate.navigate('buteegdekhuunDelgerengui', ugugdul) 
     }
 
     function sagsruuNemekh(ugugdul) {
@@ -89,30 +92,14 @@ export default function TsesKharakhTsonkh() {
                     <TextUtga style = {{textTransform: 'uppercase', fontWeight:'700', fontSize: 15, marginBottom: 15, marginTop: 15}}>{ugugdul.bulgiinNer}</TextUtga>
                     {
                       ugugdul.zadargaa.map((muriinZadargaa,muriinDugaar1)=>
-                        <View 
-                          key={muriinDugaar1}
-                          style = {[styles.zadargaa, {backgroundColor: muriinZadargaa.garakhBolomjtoiEsekh ? 'red': 'white'}]} 
-                        >
-                            
-                          <TouchableOpacity
-                            onPress = {()=> buteegdekhuunDelgerengui(muriinDugaar)}
-                          >
-                            <Image
-                                style={styles.logo}
-                                source={require('../../zurag/yuna.jpg')}
-                            />
-                          </TouchableOpacity>
-                          <TouchableOpacity 
-                            onPress = {()=> buteegdekhuunDelgerengui(muriinDugaar)}
-                            style = {{paddingHorizontal: 8, marginTop:5, height: 75, flex:1}}
-                          >
-                            <TextUtga ellipsizeMode='tail' numberOfLines={2}  style = {styles.textNer}>{`${muriinZadargaa.baarKodniiNer}`}</TextUtga>
-                            <TextUtga style = {{fontWeight: 'bold', fontSize: 18}}>{formatNumber(muriinZadargaa.une)}₮</TextUtga>
-                          </TouchableOpacity>
-                          <TouchableOpacity style = {styles.plus} onPress = {()=> sagsruuNemekh(muriinZadargaa)}>
-                            <IconMaterial name="plus-circle-outline" size={25} color = "#3a8d82"/>
-                          </TouchableOpacity>
-                        </View>
+                        <TsesKharuulakh 
+                            songosonBaiguullaga = {songosonBaiguullaga}
+                            buteegdekhuunDelgerengui = {buteegdekhuunDelgerengui} 
+                            ugugdul = {muriinZadargaa} 
+                            key = {muriinDugaar1} 
+                            muriinDugaar = {muriinDugaar1}
+                            sagsruuNemekh = {sagsruuNemekh}
+                        />
                       )
                     }
                   </View>

@@ -1,16 +1,16 @@
 import { View, StyleSheet, ScrollView, Image, Dimensions, TouchableOpacity } from "react-native";
 import CustomStatusBar from "../components/statusBar";
 import TextUtga from "../components/textUtga";
-import IconSimple from 'react-native-vector-icons/SimpleLineIcons'; 
-import Icon from 'react-native-vector-icons/FontAwesome';  
-import { useRouter, Link } from "expo-router";
-import TooComponent from "../components/tooComponent"; 
-import BarCodeScanner from "../components/barCodeScanner";
-import ModalComponent from "../components/modalComponent"; 
+import IconSimple from 'react-native-vector-icons/SimpleLineIcons';  
+import { useRouter, Link, useSearchParams } from "expo-router";
+import TooComponent from "../components/tooComponent";  
+import { formatNumber } from "../components";
 
 export default function DelgerenguiMedeelel() {
   const router = useRouter() 
-  
+  const songosonBaraa =  useSearchParams(); 
+  console.log('songosonBaraa', songosonBaraa)
+
   function qrKhariu(khariu) {
       console.log(khariu) 
   }
@@ -28,7 +28,8 @@ export default function DelgerenguiMedeelel() {
             <View style ={styles.location}>
                 <Image
                     style={styles.logo}
-                    source={require('../../zurag/yuna.jpg')}
+                    source={{uri:songosonBaraa.zurag}}
+                    loadingIndicatorSource = {require('../../zurag/cropped-placeholder.jpg')}
                 />
             </View> 
             <View style = {styles.medeelel}>
@@ -45,7 +46,7 @@ export default function DelgerenguiMedeelel() {
                 <View style = {styles.footer}>
                     <View style = {{flex:0.5, flexDirection:'row', justifyContent:'space-between'}}>
                         <TextUtga style = {{fontWeight: '400', fontSize: 15}}>Нийт дүн:</TextUtga>
-                        <TextUtga style = {{fontWeight: 'bold', fontSize: 17}}>35,000.00</TextUtga>
+                        <TextUtga style = {{fontWeight: 'bold', fontSize: 17}}>{formatNumber(songosonBaraa.une)}₮</TextUtga>
                     </View>
                     <View style = {{flex:0.5, paddingHorizontal:15, marginLeft: 15, flexDirection:'row', alignItems:'center', justifyContent:'space-between'}}>
                         <TextUtga style = {{fontWeight: '400', fontSize: 15}}>Тоо:</TextUtga>
