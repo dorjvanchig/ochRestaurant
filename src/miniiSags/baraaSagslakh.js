@@ -33,7 +33,7 @@ export default function BaraaSagslakh() {
     if ((isNullOrUndefined(barimt.bailguullagiinDugaar) || 
         barimt.bailguullagiinDugaar ==="") && barimt.nuatTulugch === "baiguullaga")
     {
-        alert('dugaar oruulna uu')
+        // alert('dugaar oruulna uu')
         baiguullagaRef.current.open()
         return
     }
