@@ -4,15 +4,34 @@ import TextUtga from "../components/textUtga";
 import IconSimple from 'react-native-vector-icons/SimpleLineIcons';  
 import { useRouter, Link, useSearchParams } from "expo-router";
 import TooComponent from "../components/tooComponent";  
-import { formatNumber } from "../components";
-
+import { formatNumber, isNullOrUndefined, sagsniiMedeelelAvya } from "../components";
+import { useEffect, useState } from "react";
+import _ from 'lodash'
+import { delgrenguiMedeelleesSagsruuNemekh } from "../components/shigtgee";
 export default function DelgerenguiMedeelel() {
   const router = useRouter() 
-  const songosonBaraa =  useSearchParams(); 
+  const songosonItem =  useSearchParams(); 
   console.log('songosonBaraa', songosonBaraa)
+  const [songosonBaraa, setSongosonBaraa] = useState({})
+  useEffect(()=> {
+    let baraa = _.cloneDeep(songosonItem)
+    let sagsBaraanuud = sagsniiMedeelelAvya().baraanuud 
+    const tooAvya = sagsBaraanuud.find(a=> a.baarKodniiKhoch === baraa.baarKodniiKhoch)
+    baraa.too  = isNullOrUndefined(tooAvya) ? 1 : tooAvya.too
+    baraa.niitDun = baraa.too * baraa.une
+    setSongosonBaraa({...baraa})
+  }, [])
 
-  function qrKhariu(khariu) {
-      console.log(khariu) 
+  function soligdsonTooAvya(too, turul) {
+    songosonBaraa.too = too
+    songosonBaraa.niitDun = too * songosonBaraa.une 
+    setSongosonBaraa({...songosonBaraa})
+  }
+
+  function sagsruuNemekh() 
+  {
+    router.back()
+    delgrenguiMedeelleesSagsruuNemekh(songosonBaraa)
   }
 
   return (
@@ -46,31 +65,23 @@ export default function DelgerenguiMedeelel() {
                 <View style = {styles.footer}>
                     <View style = {{flex:0.5, flexDirection:'row', justifyContent:'space-between'}}>
                         <TextUtga style = {{fontWeight: '400', fontSize: 15}}>Нийт дүн:</TextUtga>
-                        <TextUtga style = {{fontWeight: 'bold', fontSize: 17}}>{formatNumber(songosonBaraa.une)}₮</TextUtga>
+                        <TextUtga style = {{fontWeight: 'bold', fontSize: 17}}>{formatNumber(songosonBaraa.niitDun)}₮</TextUtga>
                     </View>
                     <View style = {{flex:0.5, paddingHorizontal:15, marginLeft: 15, flexDirection:'row', alignItems:'center', justifyContent:'space-between'}}>
                         <TextUtga style = {{fontWeight: '400', fontSize: 15}}>Тоо:</TextUtga>
-                        <TooComponent/>
-                        {/* <BarCodeScanner
-                            {...{qrKhariu}}
-                        /> */}
+                        <TooComponent 
+                            baraaToo = {songosonBaraa.too}
+                            soligdsonTooAvya = {(too, turul)=> soligdsonTooAvya(too, turul)}
+                        /> 
                     </View>
                 </View>
             </View>
         </ScrollView> 
-        <Link href={`/tsesKharakh/?extra=${JSON.stringify({a:"asdasd",b:"asdasd"})}`}  asChild>
-          <TouchableOpacity style = {styles.switch}>
+        {/* <Link href={`/tsesKharakh/?extra=${JSON.stringify({a:"asdasd",b:"asdasd"})}`}  asChild> */}
+          <TouchableOpacity onPress={()=> sagsruuNemekh()} style = {styles.switch}>
               <TextUtga style = {{color:'white', fontSize: 16, fontWeight:'bold'}}>Захиалганд нэмэх</TextUtga>
           </TouchableOpacity>
-        </Link>
-        {/* <ModalComponent>
-          <View>
-              <TextUtga>asdasdasd</TextUtga>
-                <BarCodeScanner
-                    {...{qrKhariu}}
-                />
-          </View>
-        </ModalComponent> */}
+        {/* </Link> */} 
     </View>
   );
 }
@@ -80,7 +91,7 @@ const styles = StyleSheet.create({
         height: 35,
         borderRadius: 15,
         width: Dimensions.get('screen').width - 75,
-        backgroundColor:'#f66',
+        backgroundColor:'#FF6839',
         alignItems:'center',
         justifyContent:'center',
         position:'absolute',

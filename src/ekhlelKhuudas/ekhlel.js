@@ -47,7 +47,6 @@ const Ekhlel = (props) => {
         axs_kholbolt('api/restauraniiJagsaaltAvya', {lat: bairshil.latitude, lon: bairshil.longitude})
         .then(khariu=>
         { 
-            console.log('restauraniiJagsaaltAvya', khariu)
             state.jagsaaltKharuulakh = khariu
             state.miniiBairshil = bairshil
             khuudasSergeekh()

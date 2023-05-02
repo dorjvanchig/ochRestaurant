@@ -29,9 +29,7 @@ export default function TsesKharakhTsonkh() {
 
     function menuJagsaaltAvya() 
     {
-        console.log(new Date().getSeconds(), new Date().getMilliseconds())
         axs_kholbolt('api/menuJagsaaltAvya', {baiguullagiinKhoch: songosonBaiguullaga?.baiguullagiinKhoch}).then(khariu=>{
-            console.log(new Date().getSeconds(), new Date().getMilliseconds())
             let jagsaalt = _.groupBy(khariu, 'baraaniiBulgiinKhoch')
             let tmpJagsaalt = []
             if (!isNullOrUndefined(jagsaalt)){
@@ -62,12 +60,12 @@ export default function TsesKharakhTsonkh() {
   return (
     <View style={styles.container}>
         <CustomStatusBar/>
-        <View style = {styles.header}>
-            <TouchableOpacity onPress={()=> router.back()}>
+        <TouchableOpacity onPress={()=> router.back()} style = {styles.header}>
+            <TouchableOpacity>
               <IconSimple name="arrow-left" size={18}/>
            </TouchableOpacity>
             <TextUtga style = {styles.headerText}>{songosonBaiguullaga?.baiguullagiinNer}</TextUtga>
-        </View>
+        </TouchableOpacity>
         <ScrollView style = {{flex:0.9, marginBottom: 15}}>
             <View style ={styles.location}>
               <View>
@@ -144,7 +142,7 @@ const styles = StyleSheet.create({
       marginBottom: 25,
       borderRadius: 8,
       width: Dimensions.get('screen').width - 75,
-      backgroundColor:'#f66',
+      backgroundColor:'#FF6839',
       alignItems:'center',
       paddingHorizontal: 8,
       justifyContent:'space-between',   

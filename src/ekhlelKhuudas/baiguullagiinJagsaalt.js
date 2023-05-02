@@ -32,7 +32,7 @@ export default function BaiguullagiinJagsaalt(props)
                               <TextUtga style = {styles.orgName}>{ugugdul.baiguullagiinNer}</TextUtga> 
                           </View>
                           <View style = {{flex:0.2, flexDirection:'row'}}>
-                              <IconMaterial name = "map-marker-distance" color={'#f66'} size={19} />
+                              <IconMaterial name = "map-marker-distance" color={'#FF6839'} size={19} />
                               <TextUtga style = {styles.distance}>10 км</TextUtga>
                           </View>
                       </View>

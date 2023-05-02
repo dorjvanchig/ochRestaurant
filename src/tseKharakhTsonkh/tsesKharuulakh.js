@@ -23,7 +23,7 @@ export default function TsesKharuulakh(props) {
         })
     }
 
-    return (<View 
+    return (bool ? <View 
         key={muriinDugaar}
         style = {[styles.zadargaa, {backgroundColor: ugugdluud.garakhBolomjtoiEsekh ? 'red': 'white'}]} 
       >
@@ -47,7 +47,7 @@ export default function TsesKharuulakh(props) {
         <TouchableOpacity style = {styles.plus} onPress = {()=> sagsruuNemekh(ugugdluud)}>
           <IconMaterial name="plus-circle-outline" size={25} color = "#3a8d82"/>
         </TouchableOpacity>
-      </View>)
+      </View> : <View/>)
 }
 
 const styles = StyleSheet.create({

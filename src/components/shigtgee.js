@@ -10,6 +10,16 @@ export function sagsniiMedeelelAvya()
     } 
 }
 
+export function delgrenguiMedeelleesSagsruuNemekh(ugugdul) {
+    let index = global.buteegdekhuunSags.findIndex(a=> a.baarKodniiKhoch === ugugdul.baarKodniiKhoch)
+    if (!isNullOrUndefined(index) && index > -1){
+        global.buteegdekhuunSags[index].too += ugugdul.too
+    }
+    else {
+        global.buteegdekhuunSags.push(ugugdul)
+    }
+}
+
 export function sagsruuNemye(ugugdul, turul) 
 {
     let index = global.buteegdekhuunSags.findIndex(a=> a.baarKodniiKhoch === ugugdul.baarKodniiKhoch)

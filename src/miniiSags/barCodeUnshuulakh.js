@@ -36,7 +36,7 @@ export default function BarCodeUnshuulakh(props)
                 <TextUtga style = {{color:'white', fontSize: 18, fontWeight:'bold'}}>Хаах</TextUtga>
             </TouchableOpacity> 
             {/* <Link href={`/tulburTulukh`}  asChild> */}
-                <TouchableOpacity onPress={()=> tulburTulukh()} style = {{backgroundColor:'#f66', alignItems:'center', borderRadius: 8, width: 130, justifyContent:'center'}}>
+                <TouchableOpacity onPress={()=> tulburTulukh()} style = {{backgroundColor:'#FF6839', alignItems:'center', borderRadius: 8, width: 130, justifyContent:'center'}}>
                     <TextUtga style = {{color:'white', fontSize: 18, fontWeight:'bold'}}>Төлбөр төлөх</TextUtga>
                 </TouchableOpacity> 
             {/* </Link> */}

@@ -12,7 +12,7 @@ export default function TurulSoligch(props) {
                             key={muriinDugaar}
                             style = {[ugugdul.ner === jagsaalt[0].ner ? styles.btn1 : styles.btn2,
                             {
-                                backgroundColor: state.turul == ugugdul.ner ? "#f66" : 'white',
+                                backgroundColor: state.turul == ugugdul.ner ? "#FF6839" : 'white',
                                 borderWidth: state.turul != ugugdul.ner  ? 1 : 0, borderColor:'#ddd9d9'
                             }]} 
                             onPress = {()=> turulSolikh(ugugdul.ner)}

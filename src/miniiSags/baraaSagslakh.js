@@ -31,28 +31,28 @@ export default function BaraaSagslakh() {
 
   function handlePresentModalPress() 
   {
-    // if ((isNullOrUndefined(barimt.bailguullagiinDugaar) || 
-    //     barimt.bailguullagiinDugaar ==="") && barimt.nuatTulugch === "baiguullaga")
-    // {
-    //     alert('dugaar oruulna uu')
-    //     baiguullagaRef.current.open()
-    //     return
-    // }
-    // bottomSheetRef.current.open()
-    let baraanuud = _.cloneDeep(barimt.baraanuud)
-    baraanuud.forEach(a=> a.zurag = null)
-    let param = {
-            baiguullagiinKhoch: "5254914",
-            shireeniiDugaar: 15,
-            khereglegchiinUtas: "88045424",
-            niitDun: 120000,
-            tuluv:1,
-            zakhialgiinDugaar: '15515',
-            barimtiinZadargaa: baraanuud
-    } 
-    axs_kholbolt('api/zakhialgaBurtguulye', param).then(khariu =>{
-        console.log("zakhailgaBurtguulye", khariu)
-    })
+    if ((isNullOrUndefined(barimt.bailguullagiinDugaar) || 
+        barimt.bailguullagiinDugaar ==="") && barimt.nuatTulugch === "baiguullaga")
+    {
+        alert('dugaar oruulna uu')
+        baiguullagaRef.current.open()
+        return
+    }
+    bottomSheetRef.current.open()
+    // let baraanuud = _.cloneDeep(barimt.baraanuud)
+    // baraanuud.forEach(a=> a.zurag = null)
+    // let param = {
+    //         baiguullagiinKhoch: "5254914",
+    //         shireeniiDugaar: 15,
+    //         khereglegchiinUtas: "88045424",
+    //         niitDun: 120000,
+    //         tuluv:1,
+    //         zakhialgiinDugaar: '15515',
+    //         barimtiinZadargaa: baraanuud
+    // } 
+    // axs_kholbolt('api/zakhialgaBurtguulye', param).then(khariu =>{
+    //     console.log("zakhailgaBurtguulye", khariu)
+    // })
   } 
   useEffect(()=>
   {
@@ -108,16 +108,16 @@ export default function BaraaSagslakh() {
                         >
                         <Image
                             style={styles.logo}
-                            source={require('../../zurag/yuna.jpg')}
+                            source={{uri:ugugdul.zurag}}
                         />
                         <View style = {{position:'relative'}}>
                             <View style = {{paddingHorizontal: 15, paddingVertical:10}}>
                             <TouchableOpacity style = {{position:'absolute', top: 5, right:5}} 
                                 onPress = {()=> utsgay(ugugdul)}>
-                                <IconMaterial name='delete-circle' size={25} color = "#f66"/> 
+                                <IconMaterial name='delete-circle' size={25} color = "#FF6839"/> 
                             </TouchableOpacity>
                                 <TextUtga style = {{fontWeight: '400', fontSize: 17}}>{ugugdul.baarKodniiNer}</TextUtga>
-                                <TextUtga style = {{fontWeight: 'bold', fontSize: 18}}>{ugugdul.une}₮</TextUtga>
+                                <TextUtga style = {{fontWeight: 'bold', fontSize: 18}}>{formatNumber(ugugdul.une)}₮</TextUtga>
                             </View>
                             <View style = {{flexDirection:'row', alignItems:'center', width: Dimensions.get('screen').width - 190, justifyContent:'flex-end', marginTop: 8}}>
                                 <TooComponent 
@@ -166,7 +166,7 @@ export default function BaraaSagslakh() {
                             return
                         }
                      baiguullagaRef.current.close()}}
-                style = {{backgroundColor:'#f66', alignItems:'center', borderRadius: 8, marginTop: 11, padding: 8, width: Dimensions.get('screen').width- 75, justifyContent:'center'}}>
+                style = {{backgroundColor:'#FF6839', alignItems:'center', borderRadius: 8, marginTop: 11, padding: 8, width: Dimensions.get('screen').width- 75, justifyContent:'center'}}>
                 <TextUtga style = {{color:'white', fontSize: 18, fontWeight:'bold'}}>Үргэлжлүүл</TextUtga>
             </TouchableOpacity> 
         </BottomSheet>
@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         paddingHorizontal:10,
         width: Dimensions.get('screen').width - 75,
-        backgroundColor:'#f66',
+        backgroundColor:'#FF6839',
         alignItems:'center',
         justifyContent:'space-between', 
         shadowColor: '#171717',
