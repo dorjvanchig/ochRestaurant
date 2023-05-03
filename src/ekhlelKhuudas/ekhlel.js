@@ -70,7 +70,8 @@ const Ekhlel = (props) => {
             state,
             bvsNutag, 
             setBvsNutag,
-            khuudasSergeekh
+            khuudasSergeekh,
+            bairshlaarBaiguullagaAvya
         }}>
       <View style={styles.container}>
           <CustomStatusBar />

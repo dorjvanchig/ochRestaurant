@@ -11,7 +11,7 @@ import { delgrenguiMedeelleesSagsruuNemekh } from "../components/shigtgee";
 export default function DelgerenguiMedeelel() {
   const router = useRouter() 
   const songosonItem =  useSearchParams(); 
-  console.log('songosonBaraa', songosonBaraa)
+  console.log('songosonBaraa', songosonItem)
   const [songosonBaraa, setSongosonBaraa] = useState({})
   useEffect(()=> {
     let baraa = _.cloneDeep(songosonItem)
@@ -53,14 +53,9 @@ export default function DelgerenguiMedeelel() {
             </View> 
             <View style = {styles.medeelel}>
                 <View style = {styles.orts}>
-                    <TextUtga>Орц:</TextUtga>
-                    <View style = {{marginLeft: 20, fontSize: 16}}>
-                        <TextUtga>-Гараар татсан дээд зэргийн үхрийн мах</TextUtga>
-                        <TextUtga>-Давс</TextUtga>
-                        <TextUtga>-Согино</TextUtga>
-                        <TextUtga>-Сармис</TextUtga>
-                        <TextUtga>-Шинэ ногооны салат (200гр)</TextUtga>
-                    </View>
+                   <TextUtga>
+                  {songosonBaraa.khoolniiDelgerengui}
+                   </TextUtga>
                 </View>
                 <View style = {styles.footer}>
                     <View style = {{flex:0.5, flexDirection:'row', justifyContent:'space-between'}}>

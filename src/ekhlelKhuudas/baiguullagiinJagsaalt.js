@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import {StyleSheet, View, Dimensions, Image, TouchableOpacity, ScrollView } from 'react-native'
+import {StyleSheet, View, Dimensions, Image, TouchableOpacity, ScrollView, RefreshControl } from 'react-native'
 import Icon from 'react-native-vector-icons/Octicons';
 import IconMaterial from 'react-native-vector-icons/MaterialCommunityIcons';
 import TextUtga from '../components/textUtga';
@@ -11,8 +11,21 @@ export default function BaiguullagiinJagsaalt(props)
     const router = useRouter()
     const navigate = useNavigation()
     const ekhlelCntx = useContext(EkhlelCntx)
+    const [refreshing, setRefreshing] = React.useState(false);
+
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        setTimeout(() => {
+            ekhlelCntx.bairshlaarBaiguullagaAvya()
+          setRefreshing(false);
+        }, 200);
+    }, []);
     return (
-        <ScrollView>
+        <ScrollView
+            refreshControl={
+                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        >
         {
           ekhlelCntx.state.jagsaaltKharuulakh.map((ugugdul, muriinDugaar) =>{
             return ( 
