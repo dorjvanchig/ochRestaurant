@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
         height: 150,
       },
     card:{ 
-      marginTop: 15,
+      marginTop: 10,
       borderRadius: 10,
       position:'relative',
       backgroundColor:'white',  

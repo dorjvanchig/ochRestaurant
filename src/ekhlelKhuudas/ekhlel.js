@@ -2,7 +2,8 @@ import React, {useState, useEffect, createContext } from 'react';
 import { 
   StyleSheet,
   Dimensions,
-  View
+  View,
+  TouchableOpacity
 } from 'react-native';
 import CustomStatusBar from '../components/statusBar';
 import Icon from 'react-native-vector-icons/FontAwesome'; 
@@ -10,8 +11,10 @@ import BaiguullagiinJagsaalt from './baiguullagiinJagsaalt';
 import GazriinZuragKharakh from './gazriinZuragKharakh';
 import TurulSoligch from '../components/turulSoligch';
 import IconSimple from 'react-native-vector-icons/SimpleLineIcons';
-import {axs_kholbolt} from '../components/'
-import { bairshilAvya, uuriinBairshilAvakh } from '../components/bairshilAvya';
+import {axs_kholbolt, Badge, sagsniiMedeelelAvya} from '../components/'
+import { uuriinBairshilAvakh } from '../components/bairshilAvya';
+import { Link } from 'expo-router';
+import _ from 'lodash'
 
 global.buteegdekhuunSags = []
 export const EkhlelCntx = createContext({})
@@ -47,7 +50,23 @@ const Ekhlel = (props) => {
         axs_kholbolt('api/restauraniiJagsaaltAvya', {lat: bairshil.latitude, lon: bairshil.longitude})
         .then(khariu=>
         { 
+            console.log('khariu', khariu)
             state.jagsaaltKharuulakh = khariu
+            let object = _.cloneDeep (state.jagsaaltKharuulakh[0])
+            object.urgurug = 47.919649622610734
+            object.urtrag = 106.89988968657168
+            state.jagsaaltKharuulakh.push(object)
+
+            let object1 = _.cloneDeep(object)
+            object1.urgurug = 47.92485504146591
+            object1.urtrag = 106.88139317320498
+            state.jagsaaltKharuulakh.push(object1)
+
+            let object2 = _.cloneDeep(object1)
+            object2.urgurug = 47.92356092548205
+            object2.urtrag = 106.95968012919167
+            state.jagsaaltKharuulakh.push(object2)
+
             state.miniiBairshil = bairshil
             khuudasSergeekh()
         })
@@ -76,28 +95,22 @@ const Ekhlel = (props) => {
       <View style={styles.container}>
           <CustomStatusBar />
           <View style = {styles.header}>
-            <View style = {{padding:3, borderRadius:15, marginRight: 8, width: 30, height: 30, alignItems:'center', justifyContent:'center'}}>
-                <Icon name = "navicon" color={'#505050'} size={19} />
-            </View>
+            <View style = {{backgroundColor:'#ffd739', borderRadius:15, padding:3, marginRight: 8, width: 30, height: 30, alignItems:'center', justifyContent:'center'}}>
+                <Icon name = "user" color={'#505050'} size={19}/>
+              </View>
             <View style = {{flexDirection:'row'}}>
               <View style = {{padding:3, borderRadius:15, marginRight: 8, width: 30, height: 30, alignItems:'center', justifyContent:'center'}}>
                 <Icon name = "search" color={'#505050'} size={19} />
               </View>
-              <View style = {{borderRadius:15, padding:3, marginRight: 8, width: 30, height: 30, alignItems:'center', justifyContent:'center'}}>
-                <Icon name = "shopping-basket" color={'#505050'} size={19} />
-              </View>
-              <View style = {{backgroundColor:'#ffd739', borderRadius:15, padding:3, marginRight: 8, width: 30, height: 30, alignItems:'center', justifyContent:'center'}}>
-                <Icon name = "user" color={'#505050'} size={19}/>
-              </View>
+              <Link href={`/sagslakh`}  asChild>
+                <TouchableOpacity style = {{borderRadius:15, padding:3, marginRight: 8, width: 30, height: 30, alignItems:'center', justifyContent:'center', position:'relative'}}>
+                  <Badge style = {{top: -8, left: 21}} value = {sagsniiMedeelelAvya()?.too}/>
+                  <Icon name = "shopping-basket" color={'#505050'} size={19} />
+                </TouchableOpacity>
+              </Link>
             </View>
           </View>
-          <View style = {[styles.content, {paddingHorizontal: state.turul === "Жагсаалт" ? 15 : 0, paddingVertical: state.turul === "Жагсаалт" ? 15 : 0}]}> 
-            {
-              state.turul === "Жагсаалт" ?
-              <BaiguullagiinJagsaalt /> 
-            : <GazriinZuragKharakh/>
-            }
-            <TurulSoligch
+          <TurulSoligch
               jagsaalt = {
               [
                   {ner:'Жагсаалт', icon: <Icon name='list-ul' size={16}/>}, 
@@ -106,6 +119,12 @@ const Ekhlel = (props) => {
               turulSolikh = {turulSolikh}
               state = {state}
             /> 
+          <View style = {[styles.content, {marginTop: state.turul === "Жагсаалт" ? 35 : 0, paddingHorizontal: state.turul === "Жагсаалт" ? 15 : 0, paddingVertical: state.turul === "Жагсаалт" ? 15 : 0}]}> 
+            {
+              state.turul === "Жагсаалт" ?
+              <BaiguullagiinJagsaalt /> 
+            : <GazriinZuragKharakh/>
+            } 
           </View>
       </View>
     </EkhlelCntx.Provider>
@@ -123,7 +142,7 @@ const styles = StyleSheet.create({
   header:{
     height: 40,
     borderRadius: 8,
-    paddingHorizontal: 15,
+    paddingHorizontal: 21,
     backgroundColor:'white',
     alignItems:'center',
     justifyContent:'space-between',

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import {Dimensions, StyleSheet, Animated } from 'react-native'
-import MapView from 'react-native-maps'; 
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'; 
 
 export default function GazriinZurag(props) 
 {
@@ -9,7 +9,7 @@ export default function GazriinZurag(props)
     const animateMap = () => {
         Animated.timing(mapAnimation, {
             toValue: 1,
-            duration: 900,
+            duration: 250,
             useNativeDriver: true,
         }).start();
     };
@@ -34,7 +34,9 @@ export default function GazriinZurag(props)
         <Animated.View style = {[styles. mapContainer, mapStyle]}>
             <MapView 
                 {...props}
+                ref = {props.mapRef}
                 mapType="none"
+                //provider={PROVIDER_GOOGLE}
                 style={styles.map}
                 region={props.region} 
                 followsUserLocation={true}

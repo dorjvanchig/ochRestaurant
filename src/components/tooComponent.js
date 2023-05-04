@@ -26,14 +26,14 @@ export default function TooComponent(props) {
         <View style = {styles.root}>
             <TouchableOpacity style = {styles.btn1} 
                 onPress = {()=> solikhToo('khasakh')}>
-                <IconMaterial name="minuscircleo" style = {{color:'#107266'}} size={21}/>
+                <TextUtga style = {{color:'#ec6445', fontSize: 18}}>-</TextUtga>
             </TouchableOpacity>
             <View style = {styles.too}>
                 <TextUtga style = {{fontSize:18, fontWeight:'500'}}>{too}</TextUtga>
             </View>
             <TouchableOpacity style = {styles.btn2} 
                 onPress = {()=> solikhToo('nemekh')}>
-                <IconMaterial style = {{color:'#107266'}} name="pluscircleo" size={21}/>
+                <TextUtga style = {{color:'#ec6445', fontSize: 18}}>+</TextUtga>
             </TouchableOpacity>
         </View>
     )
@@ -58,19 +58,24 @@ const styles = StyleSheet.create({
     btn1:
     {
         flex:1,
-        height: 25, 
-        //borderRightWidth:1, 
+        height: 21, 
+        borderRadius: 4,
+        backgroundColor:'white',
         alignItems:'center',
         justifyContent:'center',
-        //borderColor:'#cecece',
+        borderColor:'#ecf4f8',
+        shadowRadius: 2
     },
     btn2:
     { 
         flex:1,
-        height: 25, 
+        height: 21, 
+        backgroundColor:'white',
+        borderRadius: 4,
         //borderLeftWidth:1,
         alignItems:'center',
         justifyContent:'center', 
-        //borderColor:'#cecece',
+        borderWidth:1,
+        borderColor:'#ecf4f8',
     }
   });

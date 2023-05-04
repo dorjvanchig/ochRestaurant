@@ -51,14 +51,15 @@ const styles = StyleSheet.create({
       alignItems:'center', 
       justifyContent:'center'
     },
-    switch:{
+    switch:{ 
       flexDirection:'row',  
-      height: 35,
+      height: 45,
       alignItems:'center',
       justifyContent:'center',
       position:'absolute',
-      bottom:45,
+      top:88,
       left:35,
+      zIndex:1,
       shadowColor: '#171717',
       shadowOffset: {width: -2, height: 4},
       shadowOpacity: 0.1,

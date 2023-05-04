@@ -101,55 +101,75 @@ export default function BaraaSagslakh() {
     <View style={styles.container}>
         <CustomStatusBar/>
         <TouchableOpacity style = {styles.header} onPress={()=> router.back()}>
-            <TouchableOpacity>
+            <View>
               <IconSimple name="arrow-left" size={18}/>
-           </TouchableOpacity>
+           </View>
             <TextUtga style = {styles.headerText}>Захиалга баталгаажуулах</TextUtga>
         </TouchableOpacity>  
         <ScrollView style = {{flex:1, paddingHorizontal:15, marginVertical: 25}}>
-                <TextUtga style = {{fontSize: 16, fontWeight:'bold', marginBottom: 8}}>Бүтээгдэхүүн</TextUtga>
-                {barimt.baraanuud.map((ugugdul, muriinDugaar)=>
-                    <View 
-                        key={muriinDugaar}
-                        style = {styles.zadargaa} 
-                        //onPress = {()=> router.push("/buteegdekhuunDelgerengui")}
-                        >
-                        <Image
-                            style={styles.logo}
-                            source={{uri:ugugdul.zurag}}
-                        />
-                        <View style = {{position:'relative'}}>
-                            <View style = {{paddingHorizontal: 15, paddingVertical:10}}>
-                            <TouchableOpacity style = {{position:'absolute', top: 5, right:5}} 
-                                onPress = {()=> utsgay(ugugdul)}>
-                                <IconMaterial name='delete-circle' size={25} color = "#FF6839"/> 
-                            </TouchableOpacity>
-                                <TextUtga style = {{fontWeight: '400', fontSize: 17}}>{ugugdul.baarKodniiNer}</TextUtga>
-                                <TextUtga style = {{fontWeight: 'bold', fontSize: 18}}>{formatNumber(ugugdul.une)}₮</TextUtga>
-                            </View>
-                            <View style = {{flexDirection:'row', alignItems:'center', width: Dimensions.get('screen').width - 190, justifyContent:'flex-end', marginTop: 8}}>
-                                <TooComponent 
-                                    baraaToo = {ugugdul.too}
-                                    soligdsonTooAvya = {(too, turul)=> soligdsonTooAvya(too, turul, ugugdul)}
-                                />
-                            </View>
+            <TextUtga style = {{fontSize: 16, fontWeight:'bold', marginBottom: 8}}>Бүтээгдэхүүн</TextUtga>
+            {barimt.baraanuud.map((ugugdul, muriinDugaar)=>
+                <View 
+                    key={muriinDugaar}
+                    style = {styles.zadargaa} 
+                //onPress = {()=> router.push("/buteegdekhuunDelgerengui")}
+                >
+                    <View style = {{alignItems:'center', justifyContent:'center'}}>
+                        <View style = {styles.zuragTouch}>
+                            <Image
+                                style={styles.logo}
+                                source={{uri:ugugdul.zurag}}
+                            />
                         </View>
                     </View>
-                )} 
-                <View style = {{marginTop: 15}}>
-                    <TextUtga style = {{fontSize: 16, fontWeight:'bold', marginBottom: 8}}>НӨАТ барим</TextUtga>
-                    <View>
-                        { nuatiinJagsaalt.map((ugugdul,muriinDugaar) =>
-                                <TouchableOpacity 
-                                    key = {muriinDugaar} style = {[styles.khuvi, {backgroundColor:'#ededed'}]}
-                                    onPress={()=> nuatSolikh(ugugdul)}
-                                >
-                                    <CheckBox checked = {ugugdul.turul === barimt.nuatTulugch}/>
-                                    <TextUtga style = {{marginLeft: 8, fontSize: 16, fontWeight:'700'}}>{ugugdul.ner}</TextUtga>
-                                </TouchableOpacity>
-                            )}
+                    <View style = {{position:'relative', marginLeft: 15}}>
+                        <View style = {{paddingHorizontal: 5, paddingVertical:10}}> 
+                            <TextUtga 
+                                ellipsizeMode='tail' 
+                                numberOfLines={2}  
+                                style = {styles.textNer}>
+                                {`${ugugdul.baarKodniiNer}`}
+                            </TextUtga>
+                            <TextUtga style = {{fontWeight: 'bold', fontSize: 18}}>{formatNumber(ugugdul.une)}₮</TextUtga>
+                        </View>
+                        <View style = {{flexDirection:'row', alignItems:'center', width: Dimensions.get('screen').width - 150, justifyContent:'flex-start', marginTop: 8}}>
+                            <TooComponent 
+                                baraaToo = {ugugdul.too}
+                                soligdsonTooAvya = {(too, turul)=> soligdsonTooAvya(too, turul, ugugdul)}
+                            />
+                             <TouchableOpacity 
+                                style = {{position: 'absolute', 
+                                    right: -5,
+                                    width: 45, 
+                                    height: 35,
+                                    backgroundColor:'#FF6839',
+                                    top: 4,
+                                    borderTopLeftRadius: 21,
+                                    borderBottomRightRadius: 10,
+                                    justifyContent:'center',
+                                    alignItems:'center'
+                                }}
+                                onPress = {()=> utsgay(ugugdul)}>
+                                <IconMaterial name='delete-circle' color={"white"} style = {{marginTop: 5, marginLeft: 5}} size={25}/> 
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
+            )} 
+            <View style = {{marginTop: 15}}>
+                <TextUtga style = {{fontSize: 16, fontWeight:'bold', marginBottom: 8}}>НӨАТ барим</TextUtga>
+                <View>
+                    { nuatiinJagsaalt.map((ugugdul,muriinDugaar) =>
+                            <TouchableOpacity 
+                                key = {muriinDugaar} style = {[styles.khuvi, {backgroundColor:'#ededed'}]}
+                                onPress={()=> nuatSolikh(ugugdul)}
+                            >
+                                <CheckBox checked = {ugugdul.turul === barimt.nuatTulugch}/>
+                                <TextUtga style = {{marginLeft: 8, fontSize: 16, fontWeight:'700'}}>{ugugdul.ner}</TextUtga>
+                            </TouchableOpacity>
+                        )}
+                </View>
+            </View>
         </ScrollView> 
         <BottomSheet
             sheetRef={baiguullagaRef}
@@ -204,12 +224,18 @@ export default function BaraaSagslakh() {
 }
 const styles = StyleSheet.create({
     logo: {
-        width: Dimensions.get('screen').width-220,
-        borderTopLeftRadius:10,
-        borderBottomLeftRadius:10,
-        height: 98,
+        //width: Dimensions.get('screen').width-220,
+        width: 85,
+        borderRadius:45, 
+        height: 85,
     }, 
-      sheetContainer: {
+    zuragTouch:{
+        backgroundColor:'white', 
+        padding:5, 
+        marginLeft: 3,
+        borderRadius:45, 
+    },
+    sheetContainer: {
         // add horizontal space
         marginHorizontal: 24,
       },
@@ -247,6 +273,7 @@ const styles = StyleSheet.create({
         borderWidth:1,
         borderRadius:10, 
         borderColor:'#ededed',
+        backgroundColor:'#f0f6fb',
         shadowColor: '#171717',
         shadowOffset: {width: -2, height: 4},
         shadowOpacity: 0.1,
