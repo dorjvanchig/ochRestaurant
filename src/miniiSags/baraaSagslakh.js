@@ -5,7 +5,7 @@ import CustomStatusBar from "../components/statusBar";
 import TextUtga from "../components/textUtga";
 import IconSimple from 'react-native-vector-icons/SimpleLineIcons';  
 import IconMaterial from 'react-native-vector-icons/MaterialCommunityIcons';  
-import { useRouter } from "expo-router"; 
+import { useRouter, useNavigation } from "expo-router"; 
 import TooComponent from "../components/tooComponent"; 
 import { axs_kholbolt, formatNumber, isNullOrUndefined, sagsniiMedeelelAvya, sagsruuNemye } from '../components';
 import { songosonButeegdekhuunSagsnaasUstgay } from '../components/shigtgee';
@@ -17,6 +17,7 @@ import _ from 'lodash'
 
 export default function BaraaSagslakh() {
   const router = useRouter()  
+  const navigation = useNavigation()
   const [barimt, setBarimt] = useState({
     nuatTulugch:'khuviKhun',
     bailguullagiinDugaar: '',
@@ -38,22 +39,29 @@ export default function BaraaSagslakh() {
         baiguullagaRef.current.open()
         return
     }
-    bottomSheetRef.current.open()
-    // let baraanuud = _.cloneDeep(barimt.baraanuud)
-    // baraanuud.forEach(a=> a.zurag = null)
-    // let param = {
-    //         baiguullagiinKhoch: "5254914",
-    //         shireeniiDugaar: 15,
-    //         khereglegchiinUtas: "88045424",
-    //         niitDun: 120000,
-    //         tuluv:1,
-    //         zakhialgiinDugaar: '15515',
-    //         barimtiinZadargaa: baraanuud
-    // } 
-    // axs_kholbolt('api/zakhialgaBurtguulye', param).then(khariu =>{
-    //     console.log("zakhailgaBurtguulye", khariu)
-    // })
+    bottomSheetRef.current.open() 
   } 
+
+  function tulburiinKhesegDuudakh() {
+
+        navigation.navigate('tulburTulukh')
+        // let baraanuud = _.cloneDeep(barimt.baraanuud)
+        // baraanuud.forEach(a=> a.zurag = null)
+        // let param = {
+        //         baiguullagiinKhoch: "5254914",
+        //         shireeniiDugaar: barimt.shireeniiDugaar,
+        //         khereglegchiinUtas: "88045424",
+        //         niitDun: 120000,
+        //         tuluv:1,
+        //         zakhialgiinDugaar: '15515',
+        //         barimtiinZadargaa: baraanuud
+        // } 
+        // axs_kholbolt('api/zakhialgaBurtguulye', param).then(khariu =>{
+        //     console.log("zakhailgaBurtguulye", khariu)
+        //     bottomSheetRef.current.close()
+        // })
+  }
+
   useEffect(()=>
   {
     barimt.baraanuud = sagsniiMedeelelAvya().baraanuud
@@ -92,12 +100,12 @@ export default function BaraaSagslakh() {
   return (
     <View style={styles.container}>
         <CustomStatusBar/>
-        <View style = {styles.header}>
-            <TouchableOpacity onPress={()=> router.back()}>
+        <TouchableOpacity style = {styles.header} onPress={()=> router.back()}>
+            <TouchableOpacity>
               <IconSimple name="arrow-left" size={18}/>
            </TouchableOpacity>
             <TextUtga style = {styles.headerText}>Захиалга баталгаажуулах</TextUtga>
-        </View>  
+        </TouchableOpacity>  
         <ScrollView style = {{flex:1, paddingHorizontal:15, marginVertical: 25}}>
                 <TextUtga style = {{fontSize: 16, fontWeight:'bold', marginBottom: 8}}>Бүтээгдэхүүн</TextUtga>
                 {barimt.baraanuud.map((ugugdul, muriinDugaar)=>
@@ -179,7 +187,11 @@ export default function BaraaSagslakh() {
             wrapper: {backgroundColor: "transparent"},
             draggableIcon: {backgroundColor: "#000"}}}
         > 
-            <BarCodeUnshuulakh barimt = {barimt} setBarimt = {setBarimt} bottomSheetRef = {bottomSheetRef}/>
+            <BarCodeUnshuulakh 
+                barimt = {barimt} 
+                setBarimt = {setBarimt} 
+                tulburiinKhesegDuudakh = {tulburiinKhesegDuudakh}
+                bottomSheetRef = {bottomSheetRef}/>
         </BottomSheet>
         <View style = {{backgroundColor:'white', height: 50, marginBottom: 25, alignItems:'center', justifyContent:'flex-end'}}>
             <TouchableOpacity onPress={()=> handlePresentModalPress()} style = {styles.switch}>

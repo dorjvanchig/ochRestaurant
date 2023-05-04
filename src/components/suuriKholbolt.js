@@ -4,7 +4,7 @@ import axiosCancel from "axios-cancel";
 import {isArray,isObject} from 'lodash'
 
 axiosCancel(axios)
-var serveriinMedeelel = "192.168.100.47:8000";
+var serveriinMedeelel = "192.168.100.54:8000";
 
 export const axs_kholbolt = (uilchilgeeniiNer, damjuulakhUtga, fileTokhirgoo, khuleekhKhugatsaa) => {
     return new Promise(function (resolve, reject) {

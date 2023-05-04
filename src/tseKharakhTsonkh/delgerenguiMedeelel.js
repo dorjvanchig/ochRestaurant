@@ -1,5 +1,6 @@
 import { View, StyleSheet, ScrollView, Image, Dimensions, TouchableOpacity } from "react-native";
 import CustomStatusBar from "../components/statusBar";
+import RenderHtml from 'react-native-render-html';
 import TextUtga from "../components/textUtga";
 import IconSimple from 'react-native-vector-icons/SimpleLineIcons';  
 import { useRouter, Link, useSearchParams } from "expo-router";
@@ -33,16 +34,16 @@ export default function DelgerenguiMedeelel() {
     router.back()
     delgrenguiMedeelleesSagsruuNemekh(songosonBaraa)
   }
-
+console.log('songosonBaraa.khoolniiDelgerengui', songosonBaraa.khoolniiDelgerengui)
   return (
     <View style={styles.container}>
         <CustomStatusBar/>
-        <View style = {styles.header}>
-            <TouchableOpacity onPress={()=> router.back()}>
+        <TouchableOpacity style = {styles.header} onPress={()=> router.back()}>
+            <TouchableOpacity >
               <IconSimple name="arrow-left" size={18}/>
            </TouchableOpacity>
             <TextUtga style = {styles.headerText}>Тахиатай шөл</TextUtga>
-        </View>
+        </TouchableOpacity>
         <ScrollView style = {{flex:1}}>
             <View style ={styles.location}>
                 <Image
@@ -53,9 +54,9 @@ export default function DelgerenguiMedeelel() {
             </View> 
             <View style = {styles.medeelel}>
                 <View style = {styles.orts}>
-                   <TextUtga>
-                  {songosonBaraa.khoolniiDelgerengui}
-                   </TextUtga>
+                 {(!isNullOrUndefined(songosonBaraa.khoolniiDelgerengui) && 
+                  songosonBaraa.khoolniiDelgerengui != "" )?
+                 <RenderHtml source={{html: songosonBaraa.khoolniiDelgerengui}} /> : ""}
                 </View>
                 <View style = {styles.footer}>
                     <View style = {{flex:0.5, flexDirection:'row', justifyContent:'space-between'}}>

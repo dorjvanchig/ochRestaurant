@@ -1,12 +1,13 @@
 import { Link, useNavigation } from 'expo-router'
 import React from 'react'
 import { View, TouchableOpacity } from 'react-native'
-import { isNullOrUndefined } from '../components'
+import { isNullOrUndefined, axs_kholbolt } from '../components'
 import BarCodeScanners from '../components/barCodeScanner'
 import TextUtga from '../components/textUtga'
+import _ from 'lodash'
 export default function BarCodeUnshuulakh(props) 
 {
-  const { barimt, setBarimt } = props
+  const { barimt, setBarimt, tulburiinKhesegDuudakh } = props
   function qrKhariu(khariu) 
   {
        barimt.shireeniiDugaar = khariu
@@ -20,7 +21,8 @@ export default function BarCodeUnshuulakh(props)
   }
 
   function tulburTulukh() {
-    // useNavigation().navigate()
+    if (tulburiinKhesegDuudakh)
+      tulburiinKhesegDuudakh()
   }
   return (
     <View>

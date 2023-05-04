@@ -42,12 +42,12 @@ export default function GazriinZuragKharakh(props)
             {ekhlelCntx.state.jagsaaltKharuulakh.map((baiguullaga, index) => 
                 <Marker
                     key={index}
-                    coordinate={{latitude: baiguullaga.urtrag, longitude:baiguullaga.urgurug}}
+                    coordinate={{latitude: baiguullaga.urgurug, longitude:baiguullaga.urtrag}}
                     title={baiguullaga.baiguullagiinNer}
                 >
                      <Image
                         style={styles.logo}
-                        source={require('../../zurag/zochin.jpg')}
+                        source={{uri:baiguullaga.zurag}} 
                   />
                 </Marker>
             )}
@@ -57,9 +57,17 @@ export default function GazriinZuragKharakh(props)
 
 const styles = StyleSheet.create({
     logo: {
-        width: 35,
+        width: 50,
         borderRadius: 50,
-        height: 35,
+        height: 50,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 5,
+        },
+        shadowOpacity: 0.34,
+        shadowRadius: 6.27, 
+        elevation: 10,
       },
     text:{
         color:'white',

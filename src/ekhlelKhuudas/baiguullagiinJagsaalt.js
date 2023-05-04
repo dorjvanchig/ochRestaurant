@@ -22,6 +22,7 @@ export default function BaiguullagiinJagsaalt(props)
     }, []);
     return (
         <ScrollView
+            style = {{paddingHorizontal:2}}
             refreshControl={
                 <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }
@@ -35,9 +36,9 @@ export default function BaiguullagiinJagsaalt(props)
                     // onPress = {()=> router.push({pathname:'/tsesKharakh', params: ugugdul})}
                     >
                 <Image
-                      style={styles.logo}
-                      source={require('../../zurag/yuna.jpg')}
-                  />
+                    style={styles.logo}
+                    source={{uri:ugugdul.zurag}} 
+                /> 
                   <View style = {{marginTop: 5, padding: 5}}>
                       <View style = {{flexDirection:'row', alignContent:'center', justifyContent:'flex-start'}}>
                           <View style = {{flex:0.8, flexDirection:'row'}}>
@@ -83,7 +84,7 @@ const styles = StyleSheet.create({
         fontWeight:'200'
     },
     logo: {
-        width: Dimensions.get('screen').width-30,
+        width: Dimensions.get('screen').width-35,
         borderTopLeftRadius:10,
         borderTopRightRadius:10,
         height: 150,
@@ -93,9 +94,13 @@ const styles = StyleSheet.create({
       borderRadius: 10,
       position:'relative',
       backgroundColor:'white',  
-      shadowColor: '#171717',
-      shadowOffset: {width: -2, height: 4},
-      shadowOpacity: 0.1,
-      shadowRadius: 2,
+      shadowColor: '#171717', 
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 4,
+      elevation: 5,
     }
   });
