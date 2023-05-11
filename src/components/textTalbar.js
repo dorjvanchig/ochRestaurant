@@ -7,11 +7,11 @@ const TextTalbar = (props) => {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={dismissKeyboard}>
+    // <TouchableWithoutFeedback onPress={dismissKeyboard}>
         <TextInput 
             {...props}
         />
-    </TouchableWithoutFeedback>
+    // </TouchableWithoutFeedback>
   );
 };
 

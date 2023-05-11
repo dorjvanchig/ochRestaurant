@@ -1,4 +1,5 @@
 import { isNullOrUndefined } from "./suuriKholbolt"
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export function sagsniiMedeelelAvya() 
 {
@@ -45,4 +46,28 @@ export function songosonButeegdekhuunSagsnaasUstgay(ugugdul)
     let index = global.buteegdekhuunSags.findIndex(a=> a.baarKodniiKhoch === ugugdul.baarKodniiKhoch)
     if (index > -1)
         global.buteegdekhuunSags.splice(index, 1)
+}
+
+export const setStoreData = (key, data) => {
+    return new Promise((resolve) => {
+        let utga = undefined
+        if (typeof data === "object")
+            utga = JSON.stringify(data)
+        else 
+            utga = data 
+        AsyncStorage.setItem(key, utga).then(khariu=> {
+            resolve(true) 
+        })
+    })
+    
+}
+
+export const getStoreData = (key) => {
+    return new Promise((resolve) => {
+        AsyncStorage.getItem('khereglegch').then(khariu=>{
+            if (typeof khariu === "string")
+              resolve(JSON.parse(khariu))  
+            else resolve(khariu) 
+        })
+    })
 }

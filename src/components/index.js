@@ -7,7 +7,9 @@ export {
 } from './suuriKholbolt'
 export { 
     sagsniiMedeelelAvya,
-    sagsruuNemye
+    sagsruuNemye,
+    getStoreData,
+    setStoreData
 } from './shigtgee'
 
 

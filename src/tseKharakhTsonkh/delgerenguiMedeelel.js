@@ -13,7 +13,6 @@ export default function DelgerenguiMedeelel() {
   const { width } = useWindowDimensions()
   const router = useRouter() 
   const songosonItem =  useSearchParams(); 
-  console.log('songosonBaraa', songosonItem)
   const [songosonBaraa, setSongosonBaraa] = useState({})
   useEffect(()=> {
     let baraa = _.cloneDeep(songosonItem)
@@ -35,7 +34,6 @@ export default function DelgerenguiMedeelel() {
     router.back()
     delgrenguiMedeelleesSagsruuNemekh(songosonBaraa)
   }
-console.log('songosonBaraa.khoolniiDelgerengui', songosonBaraa.khoolniiDelgerengui)
   return (
     <View style={styles.container}>
        <TolgoiButsakh />

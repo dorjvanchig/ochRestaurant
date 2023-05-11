@@ -11,10 +11,11 @@ import BaiguullagiinJagsaalt from './baiguullagiinJagsaalt';
 import GazriinZuragKharakh from './gazriinZuragKharakh';
 import TurulSoligch from '../components/turulSoligch';
 import IconSimple from 'react-native-vector-icons/SimpleLineIcons';
-import {axs_kholbolt, Badge, sagsniiMedeelelAvya} from '../components/'
+import {axs_kholbolt, Badge, getStoreData, sagsniiMedeelelAvya} from '../components/'
 import { uuriinBairshilAvakh } from '../components/bairshilAvya';
-import { Link } from 'expo-router';
+import { Link, useNavigation } from 'expo-router';
 import _ from 'lodash'
+import TextUtga from '../components/textUtga';
 
 global.buteegdekhuunSags = []
 export const EkhlelCntx = createContext({})
@@ -31,16 +32,22 @@ let ankhniiUtga = {
     longitudeDelta: LONGITUDE_DELTA
 }
 const Ekhlel = (props) => { 
+  const navigate = useNavigation()
   const [state, setState] = useState({
     turul: 'Жагсаалт',
     jagsaaltKharuulakh: [],
     miniiBairshil: undefined, 
+    nevtersenKhereglegch: undefined
   })
 
   const [bvsNutag, setBvsNutag] = useState(ankhniiUtga)
 
   useEffect(()=> 
   {
+    getStoreData('khereglegch').then(khariu=>{ 
+      state.nevtersenKhereglegch = khariu
+      khuudasSergeekh()
+    })
     bairshlaarBaiguullagaAvya()
   }, [])
 
@@ -49,8 +56,7 @@ const Ekhlel = (props) => {
     { 
         axs_kholbolt('api/restauraniiJagsaaltAvya', {lat: bairshil.latitude, lon: bairshil.longitude})
         .then(khariu=>
-        { 
-            console.log('khariu', khariu)
+        {  
             state.jagsaaltKharuulakh = khariu
             let object = _.cloneDeep (state.jagsaaltKharuulakh[0])
             object.urgurug = 47.919649622610734
@@ -95,9 +101,12 @@ const Ekhlel = (props) => {
       <View style={styles.container}>
           <CustomStatusBar />
           <View style = {styles.header}>
-            <View style = {{backgroundColor:'#ffd739', borderRadius:15, padding:3, marginRight: 8, width: 30, height: 30, alignItems:'center', justifyContent:'center'}}>
-                <Icon name = "user" color={'#505050'} size={19}/>
-              </View>
+            <View style = {{flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
+                <TouchableOpacity onPress={()=> navigate.navigate('nevtrekh')} style = {{backgroundColor:'#ffd739', borderRadius:15, padding:3, marginRight: 8, width: 30, height: 30, alignItems:'center', justifyContent:'center'}}>
+                  <Icon name = "user" color={'#505050'} size={19}/>
+                </TouchableOpacity>
+                <TextUtga style = {{color:'gray'}}>{state.nevtersenKhereglegch?.utas}</TextUtga>
+            </View>
             <View style = {{flexDirection:'row'}}>
               <View style = {{padding:3, borderRadius:15, marginRight: 8, width: 30, height: 30, alignItems:'center', justifyContent:'center'}}>
                 <Icon name = "search" color={'#505050'} size={19} />

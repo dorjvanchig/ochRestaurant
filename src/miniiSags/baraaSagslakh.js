@@ -57,7 +57,6 @@ export default function BaraaSagslakh() {
         //         barimtiinZadargaa: baraanuud
         // } 
         // axs_kholbolt('api/zakhialgaBurtguulye', param).then(khariu =>{
-        //     console.log("zakhailgaBurtguulye", khariu)
         //     bottomSheetRef.current.close()
         // })
   }
