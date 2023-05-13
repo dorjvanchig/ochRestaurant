@@ -8,7 +8,7 @@ import IconMaterial from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useRouter, useNavigation } from "expo-router"; 
 import TooComponent from "../components/tooComponent"; 
 import { axs_kholbolt, formatNumber, isNullOrUndefined, sagsniiMedeelelAvya, sagsruuNemye } from '../components';
-import { songosonButeegdekhuunSagsnaasUstgay } from '../components/shigtgee';
+import { getStoreData, songosonButeegdekhuunSagsnaasUstgay } from '../components/shigtgee';
 import CheckBox from '../components/checkBox';
 import BottomSheet from '../components/bottomSheet';
 import BarCodeUnshuulakh from './barCodeUnshuulakh';
@@ -32,18 +32,26 @@ export default function BaraaSagslakh() {
 
   function handlePresentModalPress() 
   {
-    if ((isNullOrUndefined(barimt.bailguullagiinDugaar) || 
-        barimt.bailguullagiinDugaar ==="") && barimt.nuatTulugch === "baiguullaga")
-    {
-        alert('dugaar oruulna uu')
-        baiguullagaRef.current.open()
-        return
-    }
-    bottomSheetRef.current.open() 
+    getStoreData('khereglegch').then(khariu=>{ 
+        if (isNullOrUndefined(khariu))
+        {
+            navigation.navigate('nevtrekh')
+            return
+        }
+        else {
+            if ((isNullOrUndefined(barimt.bailguullagiinDugaar) || 
+            barimt.bailguullagiinDugaar ==="") && barimt.nuatTulugch === "baiguullaga")
+            {
+                alert('dugaar oruulna uu')
+                baiguullagaRef.current.open()
+                return
+            }
+            bottomSheetRef.current.open() 
+        } 
+    })
   } 
 
   function tulburiinKhesegDuudakh() {
-
         navigation.navigate('tulburTulukh')
         // let baraanuud = _.cloneDeep(barimt.baraanuud)
         // baraanuud.forEach(a=> a.zurag = null)

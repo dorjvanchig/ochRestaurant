@@ -37,7 +37,7 @@ export default function KodOruulakh() {
             viewBox="0 0 1440 320" 
           >
             <Path
-              fill="#ff9c47"
+              fill="white"
               d='M0,224L80,192C160,160,320,96,480,96C640,96,800,160,960,165.3C1120,171,1280,117,1360,90.7L1440,64L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z'
             />
           </Svg>
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
 },
   top: {},
   box: {
-    backgroundColor: '#ff9c47',
+    backgroundColor: 'white',
     opacity: 0.8,
     height: 80,
     shadowColor: "#adadad",

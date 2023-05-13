@@ -1,9 +1,9 @@
-import React, {useState, useEffect, createContext } from 'react';
+import React, {useState, useEffect, createContext, useRef } from 'react';
 import { 
   StyleSheet,
   Dimensions,
   View,
-  TouchableOpacity
+  TouchableOpacity, 
 } from 'react-native';
 import CustomStatusBar from '../components/statusBar';
 import Icon from 'react-native-vector-icons/FontAwesome'; 
@@ -11,11 +11,13 @@ import BaiguullagiinJagsaalt from './baiguullagiinJagsaalt';
 import GazriinZuragKharakh from './gazriinZuragKharakh';
 import TurulSoligch from '../components/turulSoligch';
 import IconSimple from 'react-native-vector-icons/SimpleLineIcons';
-import {axs_kholbolt, Badge, getStoreData, sagsniiMedeelelAvya} from '../components/'
+import {axs_kholbolt, Badge, getStoreData, isNullOrUndefined, sagsniiMedeelelAvya} from '../components/'
 import { uuriinBairshilAvakh } from '../components/bairshilAvya';
 import { Link, useNavigation } from 'expo-router';
 import _ from 'lodash'
 import TextUtga from '../components/textUtga';
+import DrawerLayout from '../components/drawerLayout';
+import NevtersenKhereglegchiinMedeelel from '../nevtrekh/nevtersenKhereglegchiinMedeelel';
 
 global.buteegdekhuunSags = []
 export const EkhlelCntx = createContext({})
@@ -40,6 +42,7 @@ const Ekhlel = (props) => {
     nevtersenKhereglegch: undefined
   })
 
+  const [drawer, setDrawer] = useState(false)
   const [bvsNutag, setBvsNutag] = useState(ankhniiUtga)
 
   useEffect(()=> 
@@ -87,56 +90,68 @@ const Ekhlel = (props) => {
   function turulSolikh(turul) {
     state.turul = turul
     bairshlaarBaiguullagaAvya()
-  }
-
-  return (
-    <EkhlelCntx.Provider 
-        value={{
-            state,
-            bvsNutag, 
-            setBvsNutag,
-            khuudasSergeekh,
-            bairshlaarBaiguullagaAvya
-        }}>
-      <View style={styles.container}>
-          <CustomStatusBar />
-          <View style = {styles.header}>
-            <View style = {{flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
-                <TouchableOpacity onPress={()=> navigate.navigate('nevtrekh')} style = {{backgroundColor:'#ffd739', borderRadius:15, padding:3, marginRight: 8, width: 30, height: 30, alignItems:'center', justifyContent:'center'}}>
-                  <Icon name = "user" color={'#505050'} size={19}/>
+  } 
+  console.log('1111', drawer)
+  return ( 
+    <DrawerLayout 
+      drawerWidth={290} 
+      onHide={()=> setDrawer(false)}
+      onShow = {()=> console.log('aaaa')}
+      open = {drawer}
+      drawerContent={<NevtersenKhereglegchiinMedeelel />} 
+      mainContent={
+        <EkhlelCntx.Provider 
+          value={{
+              state,
+              bvsNutag, 
+              setBvsNutag,
+              khuudasSergeekh,
+              bairshlaarBaiguullagaAvya
+          }}> 
+          <View style={styles.container}>
+              <CustomStatusBar />
+              <View style = {styles.header}>
+                <TouchableOpacity 
+                    onPress={()=> !isNullOrUndefined(state.nevtersenKhereglegch) ? setDrawer(true) : navigate.navigate('nevtrekh')} 
+                    style = {{flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
+                    <View 
+                      style = {{backgroundColor:'#ffd739', borderRadius:15, padding:3, marginRight: 8, width: 30, height: 30, alignItems:'center', justifyContent:'center'}}>
+                      <Icon name = "user" color={'#505050'} size={19}/>
+                    </View>
+                    <TextUtga style = {{color:'gray'}}>{state.nevtersenKhereglegch?.utas}</TextUtga>
                 </TouchableOpacity>
-                <TextUtga style = {{color:'gray'}}>{state.nevtersenKhereglegch?.utas}</TextUtga>
-            </View>
-            <View style = {{flexDirection:'row'}}>
-              <View style = {{padding:3, borderRadius:15, marginRight: 8, width: 30, height: 30, alignItems:'center', justifyContent:'center'}}>
-                <Icon name = "search" color={'#505050'} size={19} />
+                <View style = {{flexDirection:'row'}}>
+                  <View style = {{padding:3, borderRadius:15, marginRight: 8, width: 30, height: 30, alignItems:'center', justifyContent:'center'}}>
+                    <Icon name = "search" color={'#505050'} size={19} />
+                  </View>
+                  <Link href={`/sagslakh`}  asChild>
+                    <TouchableOpacity style = {{borderRadius:15, padding:3, marginRight: 8, width: 30, height: 30,  flexDirection:'row', alignItems:'center', justifyContent:'center', position:'relative'}}>
+                      <Badge style = {{top: -8, left: 21}} value = {sagsniiMedeelelAvya()?.too}/>
+                      <Icon name = "shopping-basket" color={'#505050'} size={19} />
+                    </TouchableOpacity>
+                  </Link>
+                </View>
               </View>
-              <Link href={`/sagslakh`}  asChild>
-                <TouchableOpacity style = {{borderRadius:15, padding:3, marginRight: 8, width: 30, height: 30, alignItems:'center', justifyContent:'center', position:'relative'}}>
-                  <Badge style = {{top: -8, left: 21}} value = {sagsniiMedeelelAvya()?.too}/>
-                  <Icon name = "shopping-basket" color={'#505050'} size={19} />
-                </TouchableOpacity>
-              </Link>
-            </View>
+              <TurulSoligch
+                  jagsaalt = {
+                  [
+                      {ner:'Жагсаалт', icon: <Icon name='list-ul' size={16}/>}, 
+                      {ner:'Байршил', icon: <IconSimple name='location-pin' size={16}  />}
+                  ]}
+                  turulSolikh = {turulSolikh}
+                  state = {state}
+                /> 
+              <View style = {[styles.content, {marginTop: state.turul === "Жагсаалт" ? 35 : 0, paddingHorizontal: state.turul === "Жагсаалт" ? 15 : 0, paddingVertical: state.turul === "Жагсаалт" ? 15 : 0}]}> 
+                {
+                  state.turul === "Жагсаалт" ?
+                  <BaiguullagiinJagsaalt /> 
+                : <GazriinZuragKharakh/>
+                } 
+              </View>
           </View>
-          <TurulSoligch
-              jagsaalt = {
-              [
-                  {ner:'Жагсаалт', icon: <Icon name='list-ul' size={16}/>}, 
-                  {ner:'Байршил', icon: <IconSimple name='location-pin' size={16}  />}
-              ]}
-              turulSolikh = {turulSolikh}
-              state = {state}
-            /> 
-          <View style = {[styles.content, {marginTop: state.turul === "Жагсаалт" ? 35 : 0, paddingHorizontal: state.turul === "Жагсаалт" ? 15 : 0, paddingVertical: state.turul === "Жагсаалт" ? 15 : 0}]}> 
-            {
-              state.turul === "Жагсаалт" ?
-              <BaiguullagiinJagsaalt /> 
-            : <GazriinZuragKharakh/>
-            } 
-          </View>
-      </View>
-    </EkhlelCntx.Provider>
+        </EkhlelCntx.Provider>
+      } 
+    /> 
   );
 };
 

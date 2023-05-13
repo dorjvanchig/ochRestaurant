@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { View,StyleSheet, Dimensions, TouchableOpacity, Keyboard, Image } from 'react-native'
 import TextUtga from '../components/textUtga'
-import {axs_kholbolt} from '../components'
+import {axs_kholbolt, isNullOrUndefined} from '../components'
 import { useSafeAreaInsets} from 'react-native-safe-area-context';
 import TextTalbar from '../components/textTalbar'; 
 import { useNavigation, useRouter } from 'expo-router';
@@ -16,6 +16,11 @@ export default function NevtrekhKhuudas() {
     const insets = useSafeAreaInsets();
     const [utas, setUtas] = useState('')
     function kodAvya() { 
+        if (isNullOrUndefined(utas) || utas === "")
+        {
+            alert('Дугаар оруулна уу')
+            return
+        }
         axs_kholbolt('api/khereglegchBurtgekh', {utas:utas}).then(khariu=>{
             navigation.navigate('kodAvakh', {utas}) 
         })
@@ -36,7 +41,7 @@ export default function NevtrekhKhuudas() {
                 viewBox="0 0 1440 320" 
             >
                 <Path
-                    fill="#ff9c47"
+                    fill="white"
                     d='M0,224L80,192C160,160,320,96,480,96C640,96,800,160,960,165.3C1120,171,1280,117,1360,90.7L1440,64L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z'
                 />
             </Svg>
@@ -126,7 +131,7 @@ const styles = StyleSheet.create({
     },
     top: {},
     box: {
-        backgroundColor: '#ff9c47',
+        backgroundColor: 'white',
         opacity: 0.8,
         height: 80,
         shadowColor: "#adadad",

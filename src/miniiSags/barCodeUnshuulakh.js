@@ -29,9 +29,11 @@ export default function BarCodeUnshuulakh(props)
         <BarCodeScanners  {...{qrKhariu}}/>
         {(isNullOrUndefined(barimt.shireeniiDugaar) || barimt.shireeniiDugaar === "") ?
             <View style = {{marginTop:5, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
-            <TextUtga style = {{fontSize: 18, fontWeight: '500'}}>QR код уншуулна уу!</TextUtga>
+            <TextUtga style = {{fontSize: 18, fontWeight: '500'}}>
+                Ширээний QR код уншуулна уу!
+            </TextUtga>
         </View> : null}
-        <View style = {{flexDirection:'row', marginTop: 80}}>
+        <View style = {{flexDirection:'row', marginTop: 60, marginBottom: 14}}>
             <TouchableOpacity 
                 onPress={()=> khaakh()}
                 style = {{backgroundColor:'#939495', alignItems:'center', borderRadius: 8, justifyContent:'center', padding:10, width: 130, marginRight: 8}}>

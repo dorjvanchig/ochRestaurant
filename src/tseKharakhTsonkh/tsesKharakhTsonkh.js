@@ -1,6 +1,6 @@
 
-import React, { useEffect, useState } from 'react'
-import { View, StyleSheet, ScrollView, Image, Dimensions, TouchableOpacity } from "react-native";
+import React, { useEffect, useRef, useState } from 'react'
+import { View, StyleSheet, Animated, ScrollView, Image, Dimensions, TouchableOpacity } from "react-native";
 import TextUtga from "../components/textUtga";
 import { Link, useNavigation, useSearchParams } from "expo-router";
 import { axs_kholbolt, formatNumber, isNullOrUndefined, sagsniiMedeelelAvya, sagsruuNemye } from '../components';
@@ -11,6 +11,11 @@ import TolgoiButsakh from './tolgoiButsakh';
 export default function TsesKharakhTsonkh() {
   const navigate = useNavigation()
   const songosonBaiguullaga = useSearchParams(); 
+
+  const position = useRef(new Animated.ValueXY({ x: 0, y: 0 })).current; 
+  
+  const scale = useRef(new Animated.Value(1)).current;
+
   const [tsesState, setTsesState] = useState({
     bulegTsesKharuulakh: [],
     sagsMedeelel: {},
@@ -18,8 +23,25 @@ export default function TsesKharakhTsonkh() {
   })
   useEffect(()=>{
       menuJagsaaltAvya()
+      position.addListener((value)=> {
+        console.log('position', value.y)
+      })
   }, [songosonBaiguullaga]) 
  
+  const startAnimation = () => {
+    Animated.parallel([
+        Animated.timing(position, {
+            toValue: { x: 200, y: 0 }, // Destination point coordinates
+            duration: 500, // Animation duration in milliseconds
+            useNativeDriver: false, // Ensure native driver is disabled for 'left' and 'top' properties
+          }),
+          Animated.timing(scale, {
+            toValue: 0.1, // Zoom out to 50% of the original size
+            duration: 500, // Animation duration in milliseconds
+            useNativeDriver: false,
+          }),
+      ]).start();
+  };
 
   function khuudasSergeekh() {
       setTsesState({...tsesState})
@@ -51,6 +73,7 @@ export default function TsesKharakhTsonkh() {
   }
 
   function sagsruuNemekh(ugugdul) {
+      startAnimation()
       sagsruuNemye(ugugdul, 'nemekh')
       tsesState.sagsMedeelel = sagsniiMedeelelAvya()  
       setTsesState({...tsesState})
@@ -92,6 +115,18 @@ export default function TsesKharakhTsonkh() {
             }
             </ScrollView>
         </View> 
+        {/* <Animated.View
+              style={[
+                position.getLayout(),
+                {
+                  transform: [{ scale }],
+                },
+              ]}
+        >
+            <View style={{backgroundColor: 'red', height: 100, width: 100}}>
+            <TextUtga>aaa</TextUtga>
+          </View>
+        </Animated.View> */}
         <ScrollView style = {{flex: 0.9, marginTop: 10}}>
             <View style={styles.scrollContainer}>
                 {

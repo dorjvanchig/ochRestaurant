@@ -58,8 +58,15 @@ export const setStoreData = (key, data) => {
         AsyncStorage.setItem(key, utga).then(khariu=> {
             resolve(true) 
         })
-    })
-    
+    }) 
+}
+
+export const deleteStoreData = (key) => {
+    return new Promise((resolve) => {
+        AsyncStorage.removeItem(key).then(khariu=> {
+            resolve(true) 
+        }) 
+    }) 
 }
 
 export const getStoreData = (key) => {
