@@ -10,11 +10,7 @@ import BaiguullagaMedeelel from './baiguullagaMedeelel';
 import TolgoiButsakh from './tolgoiButsakh';
 export default function TsesKharakhTsonkh() {
   const navigate = useNavigation()
-  const songosonBaiguullaga = useSearchParams(); 
-
-  const position = useRef(new Animated.ValueXY({ x: 0, y: 0 })).current; 
-  
-  const scale = useRef(new Animated.Value(1)).current;
+  const songosonBaiguullaga = useSearchParams();  
 
   const [tsesState, setTsesState] = useState({
     bulegTsesKharuulakh: [],
@@ -22,26 +18,9 @@ export default function TsesKharakhTsonkh() {
     songosonBuleg: {}
   })
   useEffect(()=>{
-      menuJagsaaltAvya()
-      position.addListener((value)=> {
-        console.log('position', value.y)
-      })
+      menuJagsaaltAvya() 
   }, [songosonBaiguullaga]) 
- 
-  const startAnimation = () => {
-    Animated.parallel([
-        Animated.timing(position, {
-            toValue: { x: 200, y: 0 }, // Destination point coordinates
-            duration: 500, // Animation duration in milliseconds
-            useNativeDriver: false, // Ensure native driver is disabled for 'left' and 'top' properties
-          }),
-          Animated.timing(scale, {
-            toValue: 0.1, // Zoom out to 50% of the original size
-            duration: 500, // Animation duration in milliseconds
-            useNativeDriver: false,
-          }),
-      ]).start();
-  };
+  
 
   function khuudasSergeekh() {
       setTsesState({...tsesState})
@@ -50,6 +29,7 @@ export default function TsesKharakhTsonkh() {
   function menuJagsaaltAvya() 
   {
       axs_kholbolt('api/menuJagsaaltAvya', {baiguullagiinKhoch: songosonBaiguullaga?.baiguullagiinKhoch}).then(khariu=>{
+        console.log('khariu', khariu)
           let jagsaalt = _.groupBy(khariu, 'baraaniiBulgiinKhoch')
           let tmpJagsaalt = []
           if (!isNullOrUndefined(jagsaalt)){
@@ -72,8 +52,7 @@ export default function TsesKharakhTsonkh() {
       navigate.navigate('buteegdekhuunDelgerengui', ugugdul) 
   }
 
-  function sagsruuNemekh(ugugdul) {
-      startAnimation()
+  function sagsruuNemekh(ugugdul) { 
       sagsruuNemye(ugugdul, 'nemekh')
       tsesState.sagsMedeelel = sagsniiMedeelelAvya()  
       setTsesState({...tsesState})
@@ -82,7 +61,7 @@ export default function TsesKharakhTsonkh() {
   function bulegSongokh(ugugdul) {
     tsesState.songosonBuleg = ugugdul
     setTsesState({...tsesState})
-  }
+  } 
 
   return (
     <View style = {{flex:1}}>

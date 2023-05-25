@@ -52,21 +52,22 @@ export default function BaraaSagslakh() {
   } 
 
   function tulburiinKhesegDuudakh() {
-        navigation.navigate('tulburTulukh')
-        // let baraanuud = _.cloneDeep(barimt.baraanuud)
-        // baraanuud.forEach(a=> a.zurag = null)
-        // let param = {
-        //         baiguullagiinKhoch: "5254914",
-        //         shireeniiDugaar: barimt.shireeniiDugaar,
-        //         khereglegchiinUtas: "88045424",
-        //         niitDun: 120000,
-        //         tuluv:1,
-        //         zakhialgiinDugaar: '15515',
-        //         barimtiinZadargaa: baraanuud
-        // } 
-        // axs_kholbolt('api/zakhialgaBurtguulye', param).then(khariu =>{
-        //     bottomSheetRef.current.close()
-        // })
+        let baraanuud = _.cloneDeep(barimt.baraanuud)
+        baraanuud.forEach(a=> a.zurag = null)
+        let param = {
+                baiguullagiinKhoch: "5254914",
+                shireeniiDugaar: barimt.shireeniiDugaar,
+                khereglegchiinUtas: "88045424",
+                niitDun: barimt.sagsMedeelel.niitDun,
+                tuluv:1,
+                turul:'pos',
+                zakhialgiinDugaar: '15515',
+                barimtiinZadargaa: baraanuud
+        } 
+        axs_kholbolt('api/zakhialgaBurtguulye', param).then(khariu =>{
+            navigation.navigate('tulburTulukh')
+            bottomSheetRef.current.close()
+        })
   }
 
   useEffect(()=>
@@ -137,7 +138,7 @@ export default function BaraaSagslakh() {
                                 style = {styles.textNer}>
                                 {`${ugugdul.baarKodniiNer}`}
                             </TextUtga>
-                            <TextUtga style = {{fontWeight: 'bold', fontSize: 18}}>{formatNumber(ugugdul.une)}₮</TextUtga>
+                            <TextUtga style = {{fontWeight: 'bold', fontSize: 18}}>{formatNumber(ugugdul.negjUne)}₮</TextUtga>
                         </View>
                         <View style = {{flexDirection:'row', alignItems:'center', width: Dimensions.get('screen').width - 150, justifyContent:'flex-start', marginTop: 8}}>
                             <TooComponent 

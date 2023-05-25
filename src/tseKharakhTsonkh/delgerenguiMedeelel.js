@@ -19,13 +19,13 @@ export default function DelgerenguiMedeelel() {
     let sagsBaraanuud = sagsniiMedeelelAvya().baraanuud 
     const tooAvya = sagsBaraanuud.find(a=> a.baarKodniiKhoch === baraa.baarKodniiKhoch)
     baraa.too  = isNullOrUndefined(tooAvya) ? 1 : tooAvya.too
-    baraa.niitDun = baraa.too * baraa.une
+    baraa.niitDun = baraa.too * baraa.negjUne
     setSongosonBaraa({...baraa})
   }, [])
 
   function soligdsonTooAvya(too, turul) {
     songosonBaraa.too = too
-    songosonBaraa.niitDun = too * songosonBaraa.une 
+    songosonBaraa.niitDun = too * songosonBaraa.negjUne 
     setSongosonBaraa({...songosonBaraa})
   }
 

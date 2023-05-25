@@ -23,6 +23,7 @@ export default function TulburiinKhelber() {
   const bottomSheetRef = useRef(null);
 
   function songosonTurul(ugugdul) {
+    // id, qpayMerchant, qpayBankCode, qpayDansniiDugaar, qpayDansniiNer
     getStoreData('khereglegch').then(khereglegch=>{
       axs_kholbolt('api/qpayNekhemjlekhUusgeye', khereglegch.token).then(khariu=>{
         tulburiinMedeelel.qpayMedeelel = khariu

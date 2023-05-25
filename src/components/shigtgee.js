@@ -3,7 +3,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export function sagsniiMedeelelAvya() 
 {
-    let niitDun = global.buteegdekhuunSags.reduce((acc, pilot) => acc + (Number(pilot.too) * Number(pilot.une)), 0);
+    let niitDun = global.buteegdekhuunSags.reduce((acc, pilot) => acc + (Number(pilot.too) * Number(pilot.negjUne)), 0);
+    console.log('global.buteegdekhuunSags', global.buteegdekhuunSags,'niitDun', niitDun)
     return {
         too: !isNullOrUndefined(global.buteegdekhuunSags) && global.buteegdekhuunSags.length > 0 ? global.buteegdekhuunSags.length : 0,
         niitDun: (!isNullOrUndefined(niitDun) || isNaN(niitDun)) ? niitDun : 0,

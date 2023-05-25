@@ -49,7 +49,7 @@ export default function TsesKharuulakh(props) {
           onPress = {()=> sagsruuNemekh(ugugdluud)}
           style = {styles.sagsNemekhTovch}
         >
-          <TextUtga style = {{fontWeight: 'bold', fontSize: 18}}>{formatNumber(ugugdluud.une)}₮</TextUtga>
+          <TextUtga style = {{fontWeight: 'bold', fontSize: 18}}>{formatNumber(ugugdluud.negjUne)}₮</TextUtga>
           <IconMaterial name="plus-circle-outline" size={25} color = "#3a8d82"/>
         </TouchableOpacity>
         {/* <TouchableOpacity style = {styles.plus} onPress = {()=> sagsruuNemekh(ugugdluud)}>
