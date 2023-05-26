@@ -90,8 +90,7 @@ const Ekhlel = (props) => {
   function turulSolikh(turul) {
     state.turul = turul
     bairshlaarBaiguullagaAvya()
-  } 
-  console.log('1111', drawer)
+  }  
   return ( 
     <DrawerLayout 
       drawerWidth={290} 

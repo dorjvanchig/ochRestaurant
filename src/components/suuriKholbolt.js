@@ -38,7 +38,7 @@ const axs_kholboltEkhluulekh = (uilchilgeeniiNer, damjuulakhUtga, fileTokhirgoo,
         })
         .catch((error) => {
             let aldaa = !isNullOrUndefined(error.response?.data?.aldaa) ? error.response?.data?.aldaa : error.response?.data?.error
-            alert(JSON.stringify(aldaa)+"aldaa")
+            alert(JSON.stringify(aldaa)+"aldaa") 
         });
     }) 
 };

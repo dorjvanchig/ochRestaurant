@@ -1,4 +1,4 @@
-import { View, StyleSheet, ScrollView, Image, TouchableOpacity, Dimensions } from "react-native";
+import { View, AppState, StyleSheet, ScrollView, Image, TouchableOpacity, Dimensions } from "react-native";
 import CustomStatusBar from "../components/statusBar";
 import TextUtga from "../components/textUtga";
 import IconSimple from 'react-native-vector-icons/SimpleLineIcons';  
@@ -10,22 +10,68 @@ import BottomSheet from '../components/bottomSheet';
 import  * as Linking from 'expo-linking'
 import { useRouter, Link } from "expo-router";
 import { useSearchParams } from "expo-router";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import QpayBankniiJagsaalt from "./qpayBankniiJagsaalt";
-import { axs_kholbolt, getStoreData } from "../components";
+import { axs_kholbolt, getStoreData, isNullOrUndefined, sagsniiMedeelelAvya, sagsTseverley } from "../components";
+import ModalComponent from "../components/modalComponent";
+import AsuultAsuulga from "../components/asuultAsuulga";
 
 export default function TulburiinKhelber() {
   const router = useRouter()
-  const { user, extra } = useSearchParams();
+  const { zakhialga } = useSearchParams();
   const [tulburiinMedeelel, setTulburiinMedeelel] = useState({
     qpayMedeelel:undefined
   })
+  const [isShow, setIsShow] = useState(false)
   const bottomSheetRef = useRef(null);
+  const appState = useRef(AppState.currentState);
+  const [appStateVisible, setAppStateVisible] = useState(appState.current);
+
+  function qpayTulburShalgaya() {
+    let khadgalsanZakhialga = JSON.parse(zakhialga)
+    let param = {id:khadgalsanZakhialga._id, invoice_id:tulburiinMedeelel.qpayMedeelel?.invoice_bank_accounts[0].invoice_id}
+    axs_kholbolt('api/qpayTulburShalgaya', param)
+    .then(khariu=>{
+      console.log('qpayTulburShalgaya', khariu)
+      if (!isNullOrUndefined(khariu) && khariu == "Amjilt")
+        setIsShow(true) 
+    })
+  }
+
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', nextAppState => {
+      if (
+        appState.current.match(/inactive|background/) &&
+        nextAppState === 'active'
+      ) {
+        console.log('App has come to the foreground!');
+      }
+      appState.current = nextAppState;
+      setAppStateVisible(appState.current); 
+    });
+
+    return () => {
+      subscription.remove();
+    };
+  }, []); 
+
+  useEffect(()=>{ 
+    if (appStateVisible === "active")
+      qpayTulburShalgaya()
+  }, [appStateVisible])
 
   function songosonTurul(ugugdul) {
-    // id, qpayMerchant, qpayBankCode, qpayDansniiDugaar, qpayDansniiNer
+    let sagsanDakhiBaraa = sagsniiMedeelelAvya()
     getStoreData('khereglegch').then(khereglegch=>{
-      axs_kholbolt('api/qpayNekhemjlekhUusgeye', khereglegch.token).then(khariu=>{
+      axs_kholbolt('api/qpayNekhemjlekhUusgeye', {
+        niitDun:sagsanDakhiBaraa.niitDun,
+        tailbar: JSON.parse(zakhialga)?.zakhialgiinDugaar,
+        qpayMerchant: sagsanDakhiBaraa?.baiguullagaMedeelel?.qpayMerchant, 
+        qpayBankCode:sagsanDakhiBaraa?.baiguullagaMedeelel?.qpayBankCode, 
+        qpayDansniiDugaar:sagsanDakhiBaraa?.baiguullagaMedeelel?.qpayDansniiDugaar, 
+        qpayDansniiNer: sagsanDakhiBaraa?.baiguullagaMedeelel?.qpayDansniiNer
+      }).then(khariu=>{
+        console.log('khariu', khariu)
         tulburiinMedeelel.qpayMedeelel = khariu
         setTulburiinMedeelel({...tulburiinMedeelel})
         setTimeout(()=>  bottomSheetRef.current.open(), 300)
@@ -34,8 +80,14 @@ export default function TulburiinKhelber() {
   }
 
   function deeplinking(sogosonBank) {
-    console.log('sogosonBank', sogosonBank)
     Linking.openURL(sogosonBank.link)
+  }
+
+  function onRequestClose() 
+  {
+    sagsTseverley()
+    router.push("/")
+    setIsShow(false)
   }
 
   return (
@@ -68,6 +120,9 @@ export default function TulburiinKhelber() {
                 )
             }
         </ScrollView> 
+        <TouchableOpacity onPress={()=> qpayTulburShalgaya()}>
+          <TextUtga>{appStateVisible}</TextUtga>
+        </TouchableOpacity>
         <BottomSheet
             sheetRef={bottomSheetRef}
             closeOnDragDown={true}
@@ -79,6 +134,7 @@ export default function TulburiinKhelber() {
         > 
            <QpayBankniiJagsaalt tulburiinMedeelel = {tulburiinMedeelel} deeplinking = {deeplinking}/>
         </BottomSheet>
+        <AsuultAsuulga onRequestClose = {onRequestClose} visible = {isShow}/>
     </View>
   );
 }

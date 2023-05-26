@@ -4,13 +4,13 @@ import IconAnt from 'react-native-vector-icons/AntDesign';
 
 export default function ModalComponent(props) 
 {
-    return (<View style = {styles.centeredView}>
+    return (<View style = {[styles.centeredView]}>
         <Modal
-            animationType="slide"
+            animationType="fade"
             transparent={true}
             {...props}
         >
-            <View style={styles.centeredView}>  
+            <View style={[styles.centeredView, {backgroundColor:'#6262625c'}]}>  
                 <View style={styles.modalView}>
                     <View style = {styles.header}>
                         <TextUtga style= {styles.headerText}>header</TextUtga>

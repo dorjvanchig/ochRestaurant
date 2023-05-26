@@ -1,15 +1,21 @@
 import { isNullOrUndefined } from "./suuriKholbolt"
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import _ from 'lodash'
 export function sagsniiMedeelelAvya() 
 {
     let niitDun = global.buteegdekhuunSags.reduce((acc, pilot) => acc + (Number(pilot.too) * Number(pilot.negjUne)), 0);
-    console.log('global.buteegdekhuunSags', global.buteegdekhuunSags,'niitDun', niitDun)
-    return {
+    
+    let utga = _.unionBy(global.buteegdekhuunSags, function (x) {
+        return x.baiguullagaMedeelel?.baiguullagiinKhoch
+    });
+    let butsaakhUtga = {
         too: !isNullOrUndefined(global.buteegdekhuunSags) && global.buteegdekhuunSags.length > 0 ? global.buteegdekhuunSags.length : 0,
         niitDun: (!isNullOrUndefined(niitDun) || isNaN(niitDun)) ? niitDun : 0,
-        baraanuud: global.buteegdekhuunSags
+        baraanuud: global.buteegdekhuunSags,
+        baiguullagaMedeelel:!isNullOrUndefined(utga) ? utga[0]?.baiguullagaMedeelel : undefined
     } 
+    console.log('sagsniiMedeelelAvya', butsaakhUtga)
+    return butsaakhUtga
 }
 
 export function delgrenguiMedeelleesSagsruuNemekh(ugugdul) {
@@ -40,6 +46,10 @@ export function sagsruuNemye(ugugdul, turul)
         ugugdul.too = 1
         global.buteegdekhuunSags.push(ugugdul)
     } 
+}
+
+export function sagsTseverley() {
+    global.buteegdekhuunSags = []
 }
 
 export function songosonButeegdekhuunSagsnaasUstgay(ugugdul) 

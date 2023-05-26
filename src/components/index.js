@@ -9,7 +9,8 @@ export {
     sagsniiMedeelelAvya,
     sagsruuNemye,
     getStoreData,
-    setStoreData
+    setStoreData,
+    sagsTseverley
 } from './shigtgee'
 
 

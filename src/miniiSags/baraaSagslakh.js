@@ -23,16 +23,28 @@ export default function BaraaSagslakh() {
     bailguullagiinDugaar: '',
     shireeniiDugaar: undefined,
     baraanuud: [],
-    sagsMedeelel:{}
+    sagsMedeelel:{},
+    nevtersenKhereglegch:undefined
   }) 
 
   const [nuatiinJagsaalt] = useState([{ner: "Хувь хүн", iconName:'check', turul:'khuviKhun' }, {ner:'Байгууллага', turul:'baiguullaga', iconName:'minus'}])
   const bottomSheetRef = useRef(null);
   const baiguullagaRef = useRef(null);
 
+  useEffect(()=>
+  {
+    let sagsanDakhiBaraa = sagsniiMedeelelAvya()
+    barimt.baraanuud = sagsanDakhiBaraa.baraanuud
+    barimt.sagsMedeelel = sagsanDakhiBaraa
+    setBarimt({...barimt})
+  }, [])
+
   function handlePresentModalPress() 
   {
     getStoreData('khereglegch').then(khariu=>{ 
+        console.log('khereglegch', khariu)
+        barimt.nevtersenKhereglegch = khariu
+        setBarimt({...barimt})
         if (isNullOrUndefined(khariu))
         {
             navigation.navigate('nevtrekh')
@@ -55,27 +67,21 @@ export default function BaraaSagslakh() {
         let baraanuud = _.cloneDeep(barimt.baraanuud)
         baraanuud.forEach(a=> a.zurag = null)
         let param = {
-                baiguullagiinKhoch: "5254914",
+                baiguullagiinKhoch: barimt.sagsMedeelel?.baiguullagaMedeelel?.baiguullagiinKhoch,
                 shireeniiDugaar: barimt.shireeniiDugaar,
-                khereglegchiinUtas: "88045424",
+                khereglegchiinUtas: barimt.nevtersenKhereglegch?.utas,
                 niitDun: barimt.sagsMedeelel.niitDun,
                 tuluv:1,
                 turul:'pos',
                 zakhialgiinDugaar: '15515',
                 barimtiinZadargaa: baraanuud
         } 
-        axs_kholbolt('api/zakhialgaBurtguulye', param).then(khariu =>{
-            navigation.navigate('tulburTulukh')
+        axs_kholbolt('api/zakhialgaBurtguulye', param).then(khariu =>
+        {
+            navigation.navigate('tulburTulukh', {zakhialga: JSON.stringify(khariu)})
             bottomSheetRef.current.close()
         })
-  }
-
-  useEffect(()=>
-  {
-    barimt.baraanuud = sagsniiMedeelelAvya().baraanuud
-    barimt.sagsMedeelel = sagsniiMedeelelAvya()
-    setBarimt({...barimt})
-  }, [])
+  } 
 
   function soligdsonTooAvya(too, turul, ugugdul) {
     sagsruuNemye(ugugdul, turul)
@@ -119,8 +125,7 @@ export default function BaraaSagslakh() {
             {barimt.baraanuud.map((ugugdul, muriinDugaar)=>
                 <View 
                     key={muriinDugaar}
-                    style = {styles.zadargaa} 
-                //onPress = {()=> router.push("/buteegdekhuunDelgerengui")}
+                    style = {styles.zadargaa}  
                 >
                     <View style = {{alignItems:'center', justifyContent:'center'}}>
                         <View style = {styles.zuragTouch}>

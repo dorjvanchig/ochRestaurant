@@ -20,6 +20,12 @@ export default function BaiguullagiinJagsaalt(props)
           setRefreshing(false);
         }, 200);
     }, []);
+
+
+    function baiguullagaSongokh(ugugdul) {
+      navigate.navigate('tsesKharakh', ugugdul)
+    }
+
     return (
         <ScrollView
             style = {{paddingHorizontal:2}}
@@ -30,11 +36,11 @@ export default function BaiguullagiinJagsaalt(props)
         {
           ekhlelCntx.state.jagsaaltKharuulakh.map((ugugdul, muriinDugaar) =>{
             return ( 
-            <TouchableOpacity key={muriinDugaar} 
-                    style = {styles.card}  
-                    onPress = {()=> navigate.navigate('tsesKharakh', ugugdul)}
-                    // onPress = {()=> router.push({pathname:'/tsesKharakh', params: ugugdul})}
-                    >
+            <TouchableOpacity 
+                key={muriinDugaar} 
+                style = {styles.card}  
+                onPress = {()=>baiguullagaSongokh(ugugdul)}
+            >
                 <Image
                     style={styles.logo}
                     source={{uri:ugugdul.zurag}} 

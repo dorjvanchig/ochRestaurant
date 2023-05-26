@@ -53,6 +53,9 @@ export default function TsesKharakhTsonkh() {
   }
 
   function sagsruuNemekh(ugugdul) { 
+      let baiguullaga = _.cloneDeep(songosonBaiguullaga)
+      delete baiguullaga.zurag
+      ugugdul.baiguullagaMedeelel = baiguullaga
       sagsruuNemye(ugugdul, 'nemekh')
       tsesState.sagsMedeelel = sagsniiMedeelelAvya()  
       setTsesState({...tsesState})
