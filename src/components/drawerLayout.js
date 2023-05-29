@@ -26,6 +26,9 @@ const DrawerLayout = ({ drawerContent, mainContent, drawerWidth, onShow, onHide,
         setDrawerOpen(open)
         toggleDrawer()
     }
+    else {
+      closeDrawer()
+    }
   }, [open])
   
 

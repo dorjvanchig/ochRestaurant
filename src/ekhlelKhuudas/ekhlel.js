@@ -3,7 +3,7 @@ import {
   StyleSheet,
   Dimensions,
   View,
-  TouchableOpacity, 
+  TouchableOpacity,  
 } from 'react-native';
 import CustomStatusBar from '../components/statusBar';
 import Icon from 'react-native-vector-icons/FontAwesome'; 
@@ -91,13 +91,23 @@ const Ekhlel = (props) => {
     state.turul = turul
     bairshlaarBaiguullagaAvya()
   }  
+
+  function toastMessage() { 
+  }
+
   return ( 
     <DrawerLayout 
       drawerWidth={290} 
       onHide={()=> setDrawer(false)}
       onShow = {()=> console.log('aaaa')}
       open = {drawer}
-      drawerContent={<NevtersenKhereglegchiinMedeelel />} 
+      drawerContent={
+        <NevtersenKhereglegchiinMedeelel 
+          setDrawer = {setDrawer} 
+          state = {state}
+          khuudasSergeekh = {khuudasSergeekh}
+        />
+      } 
       mainContent={
         <EkhlelCntx.Provider 
           value={{
@@ -117,12 +127,14 @@ const Ekhlel = (props) => {
                       style = {{backgroundColor:'#ffd739', borderRadius:15, padding:3, marginRight: 8, width: 30, height: 30, alignItems:'center', justifyContent:'center'}}>
                       <Icon name = "user" color={'#505050'} size={19}/>
                     </View>
-                    <TextUtga style = {{color:'gray'}}>{state.nevtersenKhereglegch?.utas}</TextUtga>
+                    <TextUtga style = {{color:'gray'}}>{state?.nevtersenKhereglegch?.utas}</TextUtga>
                 </TouchableOpacity>
                 <View style = {{flexDirection:'row'}}>
-                  <View style = {{padding:3, borderRadius:15, marginRight: 8, width: 30, height: 30, alignItems:'center', justifyContent:'center'}}>
+                  <TouchableOpacity 
+                    onPress={()=> toastMessage()}
+                    style = {{padding:3, borderRadius:15, marginRight: 8, width: 30, height: 30, alignItems:'center', justifyContent:'center'}}>
                     <Icon name = "search" color={'#505050'} size={19} />
-                  </View>
+                  </TouchableOpacity>
                   <Link href={`/sagslakh`}  asChild>
                     <TouchableOpacity style = {{borderRadius:15, padding:3, marginRight: 8, width: 30, height: 30,  flexDirection:'row', alignItems:'center', justifyContent:'center', position:'relative'}}>
                       <Badge style = {{top: -8, left: 21}} value = {sagsniiMedeelelAvya()?.too}/>

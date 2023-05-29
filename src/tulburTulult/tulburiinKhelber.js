@@ -1,27 +1,24 @@
-import { View, AppState, StyleSheet, ScrollView, Image, TouchableOpacity, Dimensions } from "react-native";
+import { View, AppState, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
 import CustomStatusBar from "../components/statusBar";
 import TextUtga from "../components/textUtga";
-import IconSimple from 'react-native-vector-icons/SimpleLineIcons';  
-import socialPay from '../../zurag/socialPay.jpg'
-import qPay from '../../zurag/qpay.jpg'
-import monpay from '../../zurag/monpay.jpg'
-import bank from '../../zurag/bank.jpg'
-import BottomSheet from '../components/bottomSheet';
+import IconSimple from 'react-native-vector-icons/SimpleLineIcons';   
 import  * as Linking from 'expo-linking'
 import { useRouter, Link } from "expo-router";
 import { useSearchParams } from "expo-router";
 import { useEffect, useRef, useState } from "react";
-import QpayBankniiJagsaalt from "./qpayBankniiJagsaalt";
-import { axs_kholbolt, getStoreData, isNullOrUndefined, sagsniiMedeelelAvya, sagsTseverley } from "../components";
-import ModalComponent from "../components/modalComponent";
+import { axs_kholbolt, isNullOrUndefined, sagsniiMedeelelAvya, sagsTseverley } from "../components";
 import AsuultAsuulga from "../components/asuultAsuulga";
+import TabsView from "../components/tabsView";
+import BankniiShiljvvleg from "./bankniiShiljvvleg";
+import AppTulukh from "./appTulukh";
 
 export default function TulburiinKhelber() {
   const router = useRouter()
-  const { zakhialga } = useSearchParams();
+  const { zakhialga, tuluugviBarimtEsekh } = useSearchParams();
   const [tulburiinMedeelel, setTulburiinMedeelel] = useState({
     qpayMedeelel:undefined
   })
+  const [sagsMedeelel, setSagsMedeelel] = useState(undefined)
   const [isShow, setIsShow] = useState(false)
   const bottomSheetRef = useRef(null);
   const appState = useRef(AppState.currentState);
@@ -39,6 +36,18 @@ export default function TulburiinKhelber() {
   }
 
   useEffect(() => {
+    if (!isNullOrUndefined(tuluugviBarimtEsekh) && tuluugviBarimtEsekh)
+    {
+      let object = JSON.parse(zakhialga)
+      let sags = {baiguullagaMedeelel: object?.restaurant, niitDun: object.barimt?.niitDun, zakhialgiinDugaar: object.barimt?.zakhialgiinDugaar}
+      setSagsMedeelel({...sags})
+    }
+    else 
+    {
+      let sagsMedelel = sagsniiMedeelelAvya()
+      sagsMedelel.zakhialgiinDugaar = JSON.parse(zakhialga)?.zakhialgiinDugaar,
+      setSagsMedeelel({...sagsMedelel})
+    }
     const subscription = AppState.addEventListener('change', nextAppState => {
       if (
         appState.current.match(/inactive|background/) &&
@@ -60,25 +69,6 @@ export default function TulburiinKhelber() {
       qpayTulburShalgaya()
   }, [appStateVisible])
 
-  function songosonTurul(ugugdul) {
-    let sagsanDakhiBaraa = sagsniiMedeelelAvya()
-    getStoreData('khereglegch').then(khereglegch=>{
-      axs_kholbolt('api/qpayNekhemjlekhUusgeye', {
-        niitDun:sagsanDakhiBaraa.niitDun,
-        tailbar: JSON.parse(zakhialga)?.zakhialgiinDugaar,
-        qpayMerchant: sagsanDakhiBaraa?.baiguullagaMedeelel?.qpayMerchant, 
-        qpayBankCode:sagsanDakhiBaraa?.baiguullagaMedeelel?.qpayBankCode, 
-        qpayDansniiDugaar:sagsanDakhiBaraa?.baiguullagaMedeelel?.qpayDansniiDugaar, 
-        qpayDansniiNer: sagsanDakhiBaraa?.baiguullagaMedeelel?.qpayDansniiNer
-      }).then(khariu=>{
-        console.log('khariu', khariu)
-        tulburiinMedeelel.qpayMedeelel = khariu
-        setTulburiinMedeelel({...tulburiinMedeelel})
-        setTimeout(()=>  bottomSheetRef.current.open(), 300)
-      })
-    })
-  }
-
   function deeplinking(sogosonBank) {
     Linking.openURL(sogosonBank.link)
   }
@@ -90,6 +80,10 @@ export default function TulburiinKhelber() {
     setIsShow(false)
   }
 
+  function tabsOnChange() 
+  {
+    
+  }
   return (
     <View style={styles.container}>
         <CustomStatusBar/>
@@ -98,42 +92,20 @@ export default function TulburiinKhelber() {
               <IconSimple name="arrow-left" size={18}/>
            </TouchableOpacity>
             <TextUtga style = {styles.headerText}>Төлбөр төлөх</TextUtga>
-        </View>
-        <ScrollView style = {{flex:1, marginTop: 15}}> 
-            {
-                [{ner:'Дансаар төлөх', zuragZam:bank}, 
-                {ner:'Qpay', zuragZam:qPay}, 
-                {ner:'Monpay', zuragZam:monpay}, 
-                {ner:'Social Pay', zuragZam:socialPay}]
-                .map((ugugdul, muriinDugaar)=> 
-                    <TouchableOpacity key={muriinDugaar} onPress={()=> songosonTurul(ugugdul)} style = {styles.tulburTile}>
-                        <View style = {{flexDirection:'row', alignItems:'center'}}>
-                            <Image
-                                style={styles.logo}
-                                source={ugugdul.zuragZam}
-                                alt = "as"
-                            />
-                            <TextUtga style = {{marginLeft: 15}}>{ugugdul.ner}</TextUtga>
-                        </View>
-                        <IconSimple name="arrow-right"/>
-                    </TouchableOpacity>
-                )
+        </View> 
+        <View style = {{height:Dimensions.get('window').height -110}}>
+          <TabsView 
+            activeKey = {0}
+            onChange = {()=> tabsOnChange()}
+            tabs = {
+              [
+                {key: 0, label: 'Шилжүүлгээр', children: <BankniiShiljvvleg sagsMedeelel = {sagsMedeelel} />},
+                {key: 1, label: 'Апп-аар', children: <AppTulukh deeplinking = {deeplinking} tulburiinMedeelel = {tulburiinMedeelel} setTulburiinMedeelel = {setTulburiinMedeelel} sagsMedeelel = {sagsMedeelel}/>}
+              ]
             }
-        </ScrollView> 
-        <TouchableOpacity onPress={()=> qpayTulburShalgaya()}>
-          <TextUtga>{appStateVisible}</TextUtga>
-        </TouchableOpacity>
-        <BottomSheet
-            sheetRef={bottomSheetRef}
-            closeOnDragDown={true}
-            closeOnPressMask={true}
-            height = {Dimensions.get('window').height - 130}
-            customStyles={{
-            wrapper: {backgroundColor: "transparent"},
-            draggableIcon: {backgroundColor: "#000"}}}
-        > 
-           <QpayBankniiJagsaalt tulburiinMedeelel = {tulburiinMedeelel} deeplinking = {deeplinking}/>
-        </BottomSheet>
+          
+          />
+        </View> 
         <AsuultAsuulga onRequestClose = {onRequestClose} visible = {isShow}/>
     </View>
   );
@@ -165,7 +137,7 @@ const styles = StyleSheet.create({
     },
     container: {
       flex: 1, 
-      backgroundColor: 'white', 
+      backgroundColor: '#f9f9f9', 
     },   
     headerText:{
       fontSize:15,
@@ -176,13 +148,9 @@ const styles = StyleSheet.create({
       height: 40,
       borderRadius: 8,
       paddingHorizontal: 15,
-      backgroundColor:'white',
+      backgroundColor:'#f9f9f9',
       alignItems:'center', 
-      flexDirection:'row',
-      shadowColor: '#171717',
-      shadowOffset: {width: -2, height: 4},
-      shadowOpacity: 0.1,
-      shadowRadius: 2,
+      flexDirection:'row', 
     }
   });
   

@@ -1,7 +1,6 @@
-import base64 from 'base-64'
 import axios from 'axios';
 import axiosCancel from "axios-cancel";  
-import {isArray,isObject} from 'lodash'
+import { isObject } from 'lodash'
 import { getStoreData } from './shigtgee';
 
 axiosCancel(axios)
