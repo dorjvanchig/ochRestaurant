@@ -58,6 +58,11 @@ export default function BaraaSagslakh() {
                 baiguullagaRef.current.open()
                 return
             }
+            if (isNullOrUndefined(barimt.baraanuud) || barimt.baraanuud.length  == 0)
+            {
+                alert('Барааны мэдээлэл хоосон байна')
+                return
+            }
             bottomSheetRef.current.open() 
         } 
     })
@@ -94,6 +99,8 @@ export default function BaraaSagslakh() {
         barimt.baraanuud.splice(index, 1)
     songosonButeegdekhuunSagsnaasUstgay(ugugdul) 
     barimt.sagsMedeelel = sagsniiMedeelelAvya()
+    if (barimt.baraanuud.length === 0)
+        router.back()
     setBarimt({...barimt})
   }
 

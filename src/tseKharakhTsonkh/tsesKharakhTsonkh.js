@@ -96,19 +96,7 @@ export default function TsesKharakhTsonkh() {
               )  
             }
             </ScrollView>
-        </View> 
-        {/* <Animated.View
-              style={[
-                position.getLayout(),
-                {
-                  transform: [{ scale }],
-                },
-              ]}
-        >
-            <View style={{backgroundColor: 'red', height: 100, width: 100}}>
-            <TextUtga>aaa</TextUtga>
-          </View>
-        </Animated.View> */}
+        </View>  
         <ScrollView style = {{flex: 0.9, marginTop: 10}}>
             <View style={styles.scrollContainer}>
                 {

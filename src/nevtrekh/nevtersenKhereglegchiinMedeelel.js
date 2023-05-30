@@ -23,7 +23,7 @@ export default function NevtersenKhereglegchiinMedeelel(props) {
 
   function garakh(ugugdul) {
     deleteStoreData('khereglegch').then(khariu=>{
-      state.nevtersenKhereglegch = {}
+      state.nevtersenKhereglegch = undefined
       khuudasSergeekh()
       global.buteegdekhuunSags = []
       router.push('/')
