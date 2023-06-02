@@ -49,7 +49,8 @@ export default function TsesKharakhTsonkh() {
   }
 
   function buteegdekhuunDelgerengui(ugugdul) {
-      navigate.navigate('buteegdekhuunDelgerengui', ugugdul) 
+    ugugdul.khoolniiDelgerengui = encodeURIComponent(ugugdul.khoolniiDelgerengui)
+    navigate.navigate('buteegdekhuunDelgerengui', ugugdul) 
   }
 
   function sagsruuNemekh(ugugdul) { 

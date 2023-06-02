@@ -34,7 +34,7 @@ export default function NevtersenKhereglegchiinMedeelel(props) {
     // top:insets.top
     <View style = {{flex:1}}>
       <View style = {styles.box}>
-        <Svg 
+        {/* <Svg 
             height={115}
             style = {{backgroundColor:'transparent', marginTop: 18}}
             width={Dimensions.get('screen').width - 85}
@@ -44,7 +44,7 @@ export default function NevtersenKhereglegchiinMedeelel(props) {
               fill="#FF6839" 
               d='M0,224L80,192C160,160,320,96,480,96C640,96,800,160,960,165.3C1120,171,1280,117,1360,90.7L1440,64L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z'
             />
-        </Svg>
+        </Svg> */}
       </View> 
       <View style = {{flex: 0.3, display:'flex', alignItems:'center', justifyContent:'center'}}>
           <View style = {{backgroundColor:'#f7f7f7', padding: 23, borderRadius: 80, alignItems:'center', justifyContent:'center', marginBottom: 11}}>

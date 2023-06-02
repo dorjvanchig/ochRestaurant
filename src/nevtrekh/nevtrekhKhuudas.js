@@ -35,7 +35,7 @@ export default function NevtrekhKhuudas() {
       <View style = {{height:Dimensions.get('window').height, backgroundColor:'#f6f6f6'}}> 
         <View style={styles.top}>
             <View style={styles.box}>
-            <Svg 
+            {/* <Svg 
                 height={200}
                 width={Dimensions.get('screen').width}
                 viewBox="0 0 1440 320" 
@@ -44,7 +44,7 @@ export default function NevtrekhKhuudas() {
                     fill="white"
                     d='M0,224L80,192C160,160,320,96,480,96C640,96,800,160,960,165.3C1120,171,1280,117,1360,90.7L1440,64L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z'
                 />
-            </Svg>
+            </Svg> */}
             </View>
         </View>
         <View style = {[styles.header, {top: insets.top}]}>
