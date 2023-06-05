@@ -77,6 +77,8 @@ export default function BaraaSagslakh() {
                 khereglegchiinUtas: barimt.nevtersenKhereglegch?.utas,
                 niitDun: barimt.sagsMedeelel.niitDun,
                 turul:'mobile',
+                khandakhKhayag: barimt.sagsMedeelel?.baiguullagaMedeelel?.khandakhKhayag,
+                nk:'manu',
                 zakhialgiinDugaar: '15515',
                 barimtiinZadargaa: baraanuud
         } 
