@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, ScrollView, Image, Dimensions, TouchableOpacity } from "react-native";
+import { View, StyleSheet, ScrollView, Image, Dimensions, TouchableOpacity, Platform } from "react-native";
 import TextUtga from '../components/textUtga';
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons'; 
 import { useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -8,7 +8,7 @@ export default function BaiguullagaMedeelel(props)
 {
   const insets = useSafeAreaInsets();
   const { songosonBaiguullaga } = props
-  return ( <View style = {[styles.content, {top: -insets.top+145}]}> 
+  return ( <View style = {[styles.content, {top: -insets.top + (Platform.OS === "ios" ? 145 : 120)}]}> 
               <View style = {styles.root}>
                 <View style = {styles.logo}>
                   <Image 
@@ -32,7 +32,6 @@ export default function BaiguullagaMedeelel(props)
                       <TextUtga>4-7</TextUtga>
                     </View>
                 </View>
-              
               </View>
             </View>)
 }
@@ -61,7 +60,7 @@ const styles = StyleSheet.create({
   bottom:{
     backgroundColor:'white',
     padding: 8,
-    height: 30,
+    height: 36,
     marginRight: 5,
     width:90,
     flexDirection:'row',

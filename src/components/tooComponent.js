@@ -58,9 +58,9 @@ const styles = StyleSheet.create({
     btn1:
     {
         flex:1,
-        height: 21, 
         borderRadius: 4,
         backgroundColor:'white',
+        display:'flex',
         alignItems:'center',
         justifyContent:'center',
         borderColor:'#ecf4f8',
@@ -69,10 +69,10 @@ const styles = StyleSheet.create({
     btn2:
     { 
         flex:1,
-        height: 21, 
         backgroundColor:'white',
         borderRadius: 4,
         //borderLeftWidth:1,
+        display:'flex',
         alignItems:'center',
         justifyContent:'center', 
         borderWidth:1,

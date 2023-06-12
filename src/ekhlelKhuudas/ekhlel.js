@@ -3,7 +3,8 @@ import {
   StyleSheet,
   Dimensions,
   View,
-  TouchableOpacity,  
+  TouchableOpacity,
+  Platform,  
 } from 'react-native';
 import CustomStatusBar from '../components/statusBar';
 import Icon from 'react-native-vector-icons/FontAwesome'; 
@@ -152,7 +153,10 @@ const Ekhlel = (props) => {
                   turulSolikh = {turulSolikh}
                   state = {state}
                 /> 
-              <View style = {[styles.content, {marginTop: state.turul === "Жагсаалт" ? 35 : 0, paddingHorizontal: state.turul === "Жагсаалт" ? 15 : 0, paddingVertical: state.turul === "Жагсаалт" ? 15 : 0}]}> 
+              <View style = {[styles.content, 
+                  {
+                    backgroundColor:'white',
+                  }]}> 
                 {
                   state.turul === "Жагсаалт" ?
                   <BaiguullagiinJagsaalt /> 
@@ -177,8 +181,10 @@ const styles = StyleSheet.create({
   header:{
     height: 40,
     borderRadius: 8,
+    borderBottomWidth:Platform.OS === "ios" ? 0 : 1,
+    borderBottomColor: Platform.OS === "ios" ? 'unset' : '#e1e1e1',
     paddingHorizontal: 21,
-    backgroundColor:'white',
+    backgroundColor: 'white',
     alignItems:'center',
     justifyContent:'space-between',
     flexDirection:'row',

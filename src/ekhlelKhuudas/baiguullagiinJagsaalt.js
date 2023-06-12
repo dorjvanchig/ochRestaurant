@@ -28,7 +28,7 @@ export default function BaiguullagiinJagsaalt(props)
 
     return (
         <ScrollView
-            style = {{paddingHorizontal:2}}
+            style = {{paddingHorizontal:8}}
             refreshControl={
                 <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }
@@ -99,14 +99,16 @@ const styles = StyleSheet.create({
       marginTop: 10,
       borderRadius: 10,
       position:'relative',
-      backgroundColor:'white',  
-      shadowColor: '#171717', 
+      backgroundColor:'white',   
+      borderWidth:1,
+      borderColor:'#fdfdfd',
+      shadowColor: "#000",
       shadowOffset: {
         width: 0,
         height: 2,
       },
-      shadowOpacity: 0.25,
-      shadowRadius: 4,
-      elevation: 5,
+      shadowOpacity: 0.23,
+      shadowRadius: 2.62,
+      elevation: 4,
     }
   });

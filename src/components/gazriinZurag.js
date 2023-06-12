@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import {Dimensions, StyleSheet, Animated } from 'react-native'
+import {Dimensions, StyleSheet, Animated, Platform } from 'react-native'
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'; 
 
 export default function GazriinZurag(props) 
@@ -31,7 +31,7 @@ export default function GazriinZurag(props)
     };
     
     return (
-        <Animated.View style = {[styles. mapContainer, mapStyle]}>
+        <Animated.View style = {[styles.mapContainer, mapStyle]}>
             <MapView 
                 {...props}
                 ref = {props.mapRef}
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    height: Dimensions.get('screen').height - 89,
+    height: Dimensions.get('screen').height - (Platform.OS === "ios" ? '89' : '113'),
     overflow: 'hidden',
   },
     map: {

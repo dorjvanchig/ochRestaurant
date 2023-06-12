@@ -153,18 +153,18 @@ export default function BaraaSagslakh() {
                             </TextUtga>
                             <TextUtga style = {{fontWeight: 'bold', fontSize: 18}}>{formatNumber(ugugdul.negjUne)}₮</TextUtga>
                         </View>
-                        <View style = {{flexDirection:'row', alignItems:'center', width: Dimensions.get('screen').width - 150, justifyContent:'flex-start', marginTop: 8}}>
+                        <View style = {{flexDirection:'row', alignItems:'center', position:'relative', width: Dimensions.get('screen').width - 150, justifyContent:'flex-start', marginTop: 8}}>
                             <TooComponent 
                                 baraaToo = {ugugdul.too}
                                 soligdsonTooAvya = {(too, turul)=> soligdsonTooAvya(too, turul, ugugdul)}
                             />
                              <TouchableOpacity 
-                                style = {{position: 'absolute', 
+                                style = {{
+                                    //position: 'absolute', 
                                     right: -5,
                                     width: 45, 
                                     height: 35,
                                     backgroundColor:'#FF6839',
-                                    top: 4,
                                     borderTopLeftRadius: 21,
                                     borderBottomRightRadius: 10,
                                     justifyContent:'center',
