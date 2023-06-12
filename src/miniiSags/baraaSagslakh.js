@@ -144,7 +144,7 @@ export default function BaraaSagslakh() {
                         </View>
                     </View>
                     <View style = {{position:'relative', marginLeft: 15}}>
-                        <View style = {{paddingHorizontal: 5, paddingVertical:10}}> 
+                        <View style = {{height: 68}}> 
                             <TextUtga 
                                 ellipsizeMode='tail' 
                                 numberOfLines={2}  
@@ -153,15 +153,18 @@ export default function BaraaSagslakh() {
                             </TextUtga>
                             <TextUtga style = {{fontWeight: 'bold', fontSize: 18}}>{formatNumber(ugugdul.negjUne)}₮</TextUtga>
                         </View>
-                        <View style = {{flexDirection:'row', alignItems:'center', position:'relative', width: Dimensions.get('screen').width - 150, justifyContent:'flex-start', marginTop: 8}}>
+                        <View style = {{
+                                flexDirection:'row', 
+                                alignItems:'center', 
+                                position:'relative', 
+                                width: Dimensions.get('screen').width - 144, 
+                                justifyContent:'space-between'}}>
                             <TooComponent 
                                 baraaToo = {ugugdul.too}
                                 soligdsonTooAvya = {(too, turul)=> soligdsonTooAvya(too, turul, ugugdul)}
                             />
                              <TouchableOpacity 
                                 style = {{
-                                    //position: 'absolute', 
-                                    right: -5,
                                     width: 45, 
                                     height: 35,
                                     backgroundColor:'#FF6839',
